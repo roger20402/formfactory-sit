@@ -13,8 +13,8 @@ disciplines:
 categories:
   - commercial
 shortDescription:
-  zh: "Intenza - 產品動畫"
-  en: "Intenza - Product Video"
+  zh: "FitzOn - 行銷動畫"
+  en: "FitzOn - Commercial"
 heroImage: "/projects/fitzon-app-commercial/2.png"
 stills:
   
