@@ -1,0 +1,532 @@
+---
+// src/components/Header.astro
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="header-container">
+    <a href="/" class="logo">
+      <img src="/logo.svg" alt="Form Factory" class="logo-img" />
+    </a>
+
+    <nav class="site-nav desktop-only">
+      <a href="/works" class:list={["nav-link", { active: currentPath.startsWith("/works") }]}>
+        WORKS
+      </a>
+      <a href="/about" class:list={["nav-link", { active: currentPath.startsWith("/about") }]}>
+        ABOUT
+      </a>
+      <a href="/contact" class:list={["nav-link", { active: currentPath.startsWith("/contact") }]}>
+        CONTACT
+      </a>
+    </nav>
+
+  <div class="header-actions">
+
+      <a
+        href="https://instagram.com/form__factory"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="instagram-link theme-toggle"
+        aria-label="Follow Form Factory on Instagram"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+        </svg>
+      </a>
+
+      <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2"/>
+          <path d="M12 20v2"/>
+          <path d="m4.93 4.93 1.41 1.41"/>
+          <path d="m17.66 17.66 1.41 1.41"/>
+          <path d="M2 12h2"/>
+          <path d="M20 12h2"/>
+          <path d="m6.34 17.66-1.41 1.41"/>
+          <path d="m19.07 4.93-1.41 1.41"/>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+        </svg>
+      </button>
+
+      <button class="lang-toggle desktop-only" type="button" id="lang-toggle" aria-label="Switch language">
+        <span class="lang-label-zh"><span class="lang-inactive">EN</span> <span class="lang-divider">|</span> <span class="lang-active">中</span></span>
+        <span class="lang-label-en"><span class="lang-active">EN</span> <span class="lang-divider">|</span> <span class="lang-inactive">中</span></span>
+      </button>
+
+      <button class="mobile-menu-trigger" id="menu-open" type="button" aria-label="Open navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="6" x2="20" y2="6"></line>
+          <line x1="4" y1="18" x2="20" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="drawer-backdrop" hidden></div>
+<aside class="mobile-drawer" id="mobile-drawer" hidden>
+  <div class="drawer-header">
+    <button class="drawer-close" id="menu-close" aria-label="Close navigation menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="drawer-nav">
+    <a href="/works" class:list={["drawer-link", { active: currentPath.startsWith("/works") }]}>
+      WORKS
+    </a>
+    <a href="/about" class:list={["drawer-link", { active: currentPath.startsWith("/about") }]}>
+      ABOUT
+    </a>
+    <a href="/contact" class:list={["drawer-link", { active: currentPath.startsWith("/contact") }]}>
+      CONTACT
+    </a>
+  </nav>
+
+  <div class="drawer-footer">
+    <div class="drawer-actions">
+      <span>Language</span>
+      <button class="lang-toggle-mobile" type="button" id="lang-toggle-mobile">
+        <span class="lang-label-zh"><span class="lang-inactive">EN</span> / <span class="lang-active">中</span></span>
+        <span class="lang-label-en"><span class="lang-active">EN</span> / <span class="lang-inactive">中</span></span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    width: 100%;
+  }
+
+  .header-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px clamp(16px, 4%, 40px);
+  }
+
+  .logo {
+    display: block;
+    text-decoration: none;
+  }
+
+  .logo-img {
+    height: 60px;
+    width: auto;
+    display: block;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-left: auto;
+    margin-right: 32px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  a.instagram-link.theme-toggle {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: color 0.15s ease;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: #111;
+  }
+
+  .lang-toggle {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #333;
+    font-family: inherit;
+    letter-spacing: 0.05em;
+  }
+
+  .lang-toggle:hover {
+    background: #f5f5f5;
+  }
+
+  .lang-active {
+    color: #111;
+    font-weight: 700;
+  }
+
+  .lang-inactive {
+    color: #aaa;
+    font-weight: 400;
+  }
+
+  .lang-divider {
+    color: #ccc;
+    margin: 0 2px;
+  }
+
+  .lang-label-en { display: none; }
+  .lang-label-zh { display: inline; }
+
+  :global(:root[data-lang="en"]) .lang-label-en { display: inline; }
+  :global(:root[data-lang="en"]) .lang-label-zh { display: none; }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    transition: color 0.15s ease;
+  }
+
+  .theme-toggle:hover {
+    color: #000;
+  }
+
+  .theme-toggle .icon-sun { display: none; }
+  .theme-toggle .icon-moon { display: block; }
+
+  :global(:root[data-theme="dark"]) .theme-toggle .icon-moon { display: none; }
+  :global(:root[data-theme="dark"]) .theme-toggle .icon-sun { display: block; }
+
+  .mobile-menu-trigger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #111;
+    padding: 6px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 300;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .mobile-drawer-backdrop[hidden] { display: none; }
+
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 85vw;
+    background: #fff;
+    z-index: 301;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+    animation: slideInRight 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mobile-drawer[hidden] { display: none; }
+
+  .drawer-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 24px;
+  }
+
+  .drawer-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #111;
+    padding: 4px;
+  }
+
+  .drawer-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 32px;
+    gap: 24px;
+    flex: 1;
+  }
+
+  .drawer-link {
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #111;
+    letter-spacing: 0.02em;
+  }
+
+  .drawer-link.active {
+    color: #666;
+  }
+
+  .drawer-footer {
+    padding: 24px 32px 40px;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .drawer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .lang-toggle-mobile {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  @media (max-width: 960px) {
+    .desktop-only {
+      display: none !important;
+    }
+
+    .mobile-menu-trigger {
+      display: flex;
+    }
+
+    .header-container {
+      padding: 16px 20px;
+    }
+
+    .logo-img {
+      height: 48px;
+    }
+
+    .header-actions {
+      gap: 12px;
+    }
+  }
+
+  /* Dark mode */
+  :global(:root[data-theme="dark"]) .site-header {
+    background: rgba(15, 15, 15, 0.75);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  :global(:root[data-theme="dark"]) .nav-link {
+    color: #999;
+  }
+
+  :global(:root[data-theme="dark"]) .nav-link:hover,
+  :global(:root[data-theme="dark"]) .nav-link.active {
+    color: #f5f5f5;
+  }
+
+  :global(:root[data-theme="dark"]) .lang-toggle {
+    color: #f5f5f5;
+    border-color: #444;
+  }
+
+  :global(:root[data-theme="dark"]) .lang-toggle:hover {
+    background: #1f1f1f;
+  }
+
+ :global(:root[data-theme="dark"]) .lang-active {
+  color: #ffffff;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 1))
+          drop-shadow(0 0 6px rgba(255, 255, 255, 0.3))
+          drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
+}
+
+  :global(:root[data-theme="dark"]) .lang-inactive {
+    color: #555;
+  }
+
+  :global(:root[data-theme="dark"]) .lang-divider {
+    color: #444;
+  }
+
+  :global(:root[data-theme="dark"]) .theme-toggle {
+    color: #f5f5f5;
+  }
+
+  :global(:root[data-theme="dark"]) .logo-img {
+    filter: invert(1);
+  }
+
+  :global(:root[data-theme="dark"]) .mobile-menu-trigger {
+    color: #f5f5f5;
+  }
+
+  :global(:root[data-theme="dark"]) .mobile-drawer {
+    background: #0f0f0f;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
+  }
+
+  :global(:root[data-theme="dark"]) .drawer-close {
+    color: #f5f5f5;
+  }
+
+  :global(:root[data-theme="dark"]) .drawer-link {
+    color: #f5f5f5;
+  }
+
+  :global(:root[data-theme="dark"]) .drawer-link.active {
+    color: #888;
+  }
+
+  :global(:root[data-theme="dark"]) .drawer-footer {
+    border-top-color: #2a2a2a;
+  }
+
+  :global(:root[data-theme="dark"]) .drawer-actions {
+    color: #999;
+  }
+
+  :global(:root[data-theme="dark"]) .lang-toggle-mobile {
+    background: #1f1f1f;
+    border-color: #444;
+    color: #f5f5f5;
+  }
+
+  :global(:root[data-theme="dark"]) .theme-toggle,
+  :global(:root[data-theme="dark"]) .instagram-link,
+  :global(:root[data-theme="dark"]) .mobile-menu-trigger {
+    transition: color 0.25s ease, filter 0.25s ease;
+  }
+
+  :global(:root[data-theme="dark"]) .theme-toggle:hover,
+  :global(:root[data-theme="dark"]) .instagram-link:hover,
+  :global(:root[data-theme="dark"]) .mobile-menu-trigger:hover {
+    color: #ffffff;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 1))
+            drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
+            drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+    const savedLang = localStorage.getItem("lang");
+    if (savedLang === "en") {
+      document.documentElement.setAttribute("data-lang", "en");
+    }
+  })();
+</script>
+
+<script>
+  const menuOpenBtn = document.getElementById("menu-open");
+  const menuCloseBtn = document.getElementById("menu-close");
+  const drawer = document.getElementById("mobile-drawer");
+  const backdrop = document.getElementById("drawer-backdrop");
+
+  function openDrawer() {
+    drawer.hidden = false;
+    backdrop.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeDrawer() {
+    drawer.hidden = true;
+    backdrop.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  menuOpenBtn?.addEventListener("click", openDrawer);
+  menuCloseBtn?.addEventListener("click", closeDrawer);
+  backdrop?.addEventListener("click", closeDrawer);
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 960 && !drawer.hidden) {
+      closeDrawer();
+    }
+  });
+
+  const themeToggle = document.getElementById("theme-toggle");
+
+  themeToggle?.addEventListener("click", () => {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    if (isDark) {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    }
+  });
+
+  function toggleLang() {
+    const isEn = document.documentElement.getAttribute("data-lang") === "en";
+    if (isEn) {
+      document.documentElement.removeAttribute("data-lang");
+      localStorage.setItem("lang", "zh");
+    } else {
+      document.documentElement.setAttribute("data-lang", "en");
+      localStorage.setItem("lang", "en");
+    }
+  }
+
+  document.getElementById("lang-toggle")?.addEventListener("click", toggleLang);
+  document.getElementById("lang-toggle-mobile")?.addEventListener("click", toggleLang);
+</script>

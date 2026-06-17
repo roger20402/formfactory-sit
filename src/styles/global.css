@@ -1,0 +1,617 @@
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f0f0f;
+  --text: #f5f5f5;
+}
+
+body {
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+:root[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Page header */
+:root[data-theme="dark"] .page-header h1 {
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .result-count {
+  color: #999;
+}
+
+/* Sort control */
+:root[data-theme="dark"] .sort-button {
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .sort-button .sort-label {
+  color: #999;
+}
+
+:root[data-theme="dark"] .sort-button .sort-value {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .sort-options {
+  background: #1a1a1a;
+  border-color: #2a2a2a;
+}
+
+:root[data-theme="dark"] .sort-options li {
+  color: #ccc !important;
+}
+
+:root[data-theme="dark"] .sort-options li:hover {
+  background: #2a2a2a;
+}
+
+:root[data-theme="dark"] .sort-options li.active {
+  color: #fff !important;
+}
+
+/* Filter sidebar */
+:root[data-theme="dark"] .filter-group-title {
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .filter-options label,
+:root[data-theme="dark"] .filter-options label span {
+  color: #ccc;
+}
+
+:root[data-theme="dark"] .filter-options input[type="checkbox"] {
+  accent-color: #888;
+}
+
+:root[data-theme="dark"] #clear-filters {
+  color: var(--text);
+  border-color: #444;
+}
+
+/* Header */
+:root[data-theme="dark"] .site-header {
+  background: #0f0f0f;
+  border-bottom-color: #2a2a2a;
+}
+
+:root[data-theme="dark"] .nav-link {
+  color: #999;
+}
+
+:root[data-theme="dark"] .nav-link:hover,
+:root[data-theme="dark"] .nav-link.active {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .lang-toggle {
+  color: #f5f5f5;
+  border-color: #444;
+}
+
+:root[data-theme="dark"] .lang-toggle:hover {
+  background: #1f1f1f;
+}
+
+:root[data-theme="dark"] .lang-divider {
+  color: #555;
+}
+
+:root[data-theme="dark"] .theme-toggle {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .logo-img {
+  filter: invert(1);
+}
+
+/* Footer */
+:root[data-theme="dark"] .site-footer {
+  border-top-color: #2a2a2a;
+}
+
+/* Project cards */
+:root[data-theme="dark"] .card-title {
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .card-client {
+  color: #999;
+}
+
+/* Modal */
+:root[data-theme="dark"] .modal-container {
+  background: #1a1a1a;
+}
+
+:root[data-theme="dark"] .modal-close {
+  background: rgba(40, 40, 40, 0.9);
+  color: #ccc;
+}
+
+:root[data-theme="dark"] .modal-close:hover {
+  background: #2a2a2a;
+  color: #fff;
+}
+
+:root[data-theme="dark"] .project-content .project-media {
+  border-right-color: rgb(54, 54, 54)
+}
+
+:root[data-theme="dark"] .project-content .media-tab {
+  color: #999;
+}
+
+:root[data-theme="dark"] .project-content .media-tab:hover {
+  color: #fff;
+}
+
+:root[data-theme="dark"] .project-content .media-tab.active {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+:root[data-theme="dark"] .project-content .media-panels {
+  background: #3a3a3a;
+}
+
+:root[data-theme="dark"] .project-content .project-title {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .project-content .project-client {
+  color: #ccc;
+}
+
+:root[data-theme="dark"] .project-content .project-date {
+  color: #888;
+}
+
+:root[data-theme="dark"] .project-content .tag-group-title {
+  color: #888;
+}
+
+:root[data-theme="dark"] .project-content .tag {
+  background: #4a4a4a;
+  color: #ccc;
+}
+
+:root[data-theme="dark"] .project-content .project-description {
+  color: #ccc;
+}
+
+/* Mobile project page (dark mode) */
+:root[data-theme="dark"] .mobile-title {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .mobile-client {
+  color: #ccc;
+}
+
+:root[data-theme="dark"] .mobile-date {
+  color: #888;
+}
+
+:root[data-theme="dark"] .mobile-tag-group-title {
+  color: #888;
+}
+
+:root[data-theme="dark"] .mobile-tag {
+  background: #4a4a4a;
+  color: #ccc;
+}
+
+:root[data-theme="dark"] .mobile-interleaved-output p,
+:root[data-theme="dark"] .mobile-intro-content {
+  color: #ccc;
+}
+
+/* Scrollbars (Chromium/Webkit) */
+:root[data-theme="dark"] ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 6px;
+  border: 2px solid #1a1a1a;
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Scrollbars (Firefox) */
+:root[data-theme="dark"] {
+  scrollbar-color: #444 #1a1a1a;
+}
+
+body:has(.hero) .site-header {
+  border-bottom: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+/* Contact page */
+:root[data-theme="dark"] .contact-heading {
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .form-label,
+:root[data-theme="dark"] .form-sublabel,
+:root[data-theme="dark"] .form-label-group {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .contact-form input,
+:root[data-theme="dark"] .contact-form textarea {
+  background: #fafafa;
+  color: #111;
+  border-color: #444;
+}
+
+:root[data-theme="dark"] .form-submit {
+  color: var(--text);
+  border-color: #444;
+}
+
+:root[data-theme="dark"] .form-submit:hover {
+  background: #1f1f1f;
+}
+
+/* Mobile filter button + sheet (dark mode) */
+:root[data-theme="dark"] .mobile-filter-button {
+  border-color: #444;
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .filter-sheet {
+  background: #1a1a1a;
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .filter-sheet-header {
+  border-bottom-color: #2a2a2a;
+}
+
+:root[data-theme="dark"] .filter-sheet-title {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .filter-sheet-close {
+  background: #2a2a2a;
+  color: #ccc;
+}
+
+:root[data-theme="dark"] .filter-sheet-body .filter-group-title {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .filter-sheet-body .filter-options label {
+  color: #ccc;
+}
+
+:root[data-theme="dark"] .filter-sheet-body .filter-options input[type="checkbox"] {
+  accent-color: #888;
+}
+
+:root[data-theme="dark"] .filter-sheet-footer {
+  border-top-color: #2a2a2a;
+}
+
+:root[data-theme="dark"] .filter-sheet-clear {
+  border-color: #444;
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .filter-sheet-clear:hover {
+  background: #2a2a2a;
+}
+
+:root[data-theme="dark"] .filter-sheet-apply {
+  background: #f5f5f5;
+  color: #111;
+}
+
+/* ============================================
+   MOBILE DRAWER (DARK MODE STYLES)
+   ============================================ */
+
+:root[data-theme="dark"] .mobile-menu-trigger {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .mobile-drawer {
+  background: #0f0f0f;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme="dark"] .drawer-close {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .drawer-link {
+  color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .drawer-link.active {
+  color: #888;
+}
+
+:root[data-theme="dark"] .drawer-footer {
+  border-top-color: #2a2a2a;
+}
+
+:root[data-theme="dark"] .drawer-actions {
+  color: #999;
+}
+
+:root[data-theme="dark"] .lang-toggle-mobile {
+  background: #1f1f1f;
+  border-color: #444;
+  color: #f5f5f5;
+}
+
+/* ============================================
+   DARK MODE ICON HOVER GLOW EFFECTS
+   ============================================ */
+
+:root[data-theme="dark"] .theme-toggle,
+:root[data-theme="dark"] .instagram-link,
+:root[data-theme="dark"] .mobile-menu-trigger {
+  transition: color 0.25s ease, filter 0.25s ease;
+}
+
+:root[data-theme="dark"] .theme-toggle:hover,
+:root[data-theme="dark"] .instagram-link:hover,
+:root[data-theme="dark"] .mobile-menu-trigger:hover {
+  color: #ffffff;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 1))
+          drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
+          drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+}
+
+/* Floating back-to-works button on standalone project pages */
+:root[data-theme="dark"] .desktop-back-button {
+  background: rgba(245, 245, 245, 0.92);
+  color: #111;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .desktop-back-button:hover {
+  background: #fff;
+}
+
+/* Mobile/Desktop visibility toggles for ProjectContent */
+.mobile-only { display: none !important; }
+.desktop-only { display: block; }
+
+@media (max-width: 960px) {
+  .mobile-only { display: block !important; }
+  .desktop-only { display: none !important; }
+}
+
+/* ====================================================
+   PROJECT CONTENT SHARED STYLES
+   ==================================================== */
+
+.project-content .project-media {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid #eee;
+}
+
+.project-content .media-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.project-content .media-tab {
+  background: transparent;
+  border: none;
+  padding: 18px 24px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #666;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.project-content .media-tab:hover {
+  color: #111;
+}
+
+.project-content .media-tab.active {
+  background: #1a1a1a;
+  color: #fff;
+  font-weight: 700;
+}
+
+.project-content .media-panels {
+  flex: 1;
+  overflow-y: auto;
+  background: #1a1a1a;
+  padding: 13px 18px 20px 20px;
+  overscroll-behavior: contain;
+}
+
+.project-content .media-panel {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-content .media-panel.active {
+  display: flex;
+}
+
+.project-content .media-item-image {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+}
+
+.project-content .media-item-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.project-content .media-item-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.project-content .media-item-instagram {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.project-content .media-item-instagram-horizontal .instagram-media {
+  max-width: none !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.project-content .media-item-instagram-vertical .instagram-media {
+  max-width: 500px !important;
+  width: 80% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.project-content .media-item-instagram-square .instagram-media {
+  max-width: 500px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.project-content .media-empty {
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+  padding: 40px;
+}
+
+.project-content .project-info {
+  overflow-y: auto;
+  padding: 40px 32px 40px 28px;
+  overscroll-behavior: contain;
+}
+
+.project-content .project-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.project-content .project-client {
+  font-size: 15px;
+  color: #333;
+  margin: 0 0 4px 0;
+  font-style: italic;
+}
+
+.project-content .project-date {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 24px 0;
+}
+
+.project-content .tag-group {
+  margin-bottom: 20px;
+}
+
+.project-content .tag-group-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+.project-content .tag-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-content .tag {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: #f5f5f5;
+  border-radius: 999px;
+  color: #333;
+}
+
+.project-content .project-description {
+  margin: 24px 0 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #333;
+}
+
+.project-content .project-description p {
+  margin: 0 0 14px 0;
+}
+
+/* ============================================
+   LANGUAGE SWITCHING
+   ============================================ */
+
+.lang-en { display: none; }
+.lang-zh { display: block; }
+
+:root[data-lang="en"] .lang-en { display: block; }
+:root[data-lang="en"] .lang-zh { display: none; }
+
+/* ============================================
+   MOBILE IMAGE OVERFLOW FIX
+   ============================================ */
+
+.mobile-panels img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  box-sizing: border-box;
+}
+
+.mobile-panels .lang-zh,
+.mobile-panels .lang-en {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}

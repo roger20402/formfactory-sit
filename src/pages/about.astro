@@ -1,0 +1,192 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href="https://www.formfactory.studio/about" />
+    <link rel="alternate" hreflang="zh-TW" href="https://www.formfactory.studio/about" />
+<link rel="alternate" hreflang="en" href="https://www.formfactory.studio/about" />
+<link rel="alternate" hreflang="x-default" href="https://www.formfactory.studio/about" />
+    <title>About | 放飛設計 Form Factory</title>
+    <meta name="description" content="放飛設計 Form Factory is an independent 3D animation and VFX studio based in Taipei, founded by UCL Bartlett-trained architect Roger." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.formfactory.studio/about" />
+    <meta property="og:title" content="About | Form Factory" />
+    <meta property="og:description" content="Independent 3D animation and VFX studio based in Taipei, founded by UCL Bartlett-trained architect Roger." />
+    <meta property="og:image" content="https://www.formfactory.studio/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Form Factory" />
+    <meta property="og:locale" content="zh_TW" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.formfactory.studio/about" />
+    <meta name="twitter:title" content="About | Form Factory" />
+    <meta name="twitter:description" content="Independent 3D animation and VFX studio based in Taipei, founded by UCL Bartlett-trained architect Roger." />
+    <meta name="twitter:image" content="https://www.formfactory.studio/og-image.jpg" />
+
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("lang");
+        if (saved === "en") {
+          document.documentElement.setAttribute("data-lang", "en");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+
+    <section class="about-section">
+      <div class="about-inner">
+        <h1 class="about-heading">About</h1>
+
+        <div class="about-layout">
+
+          <div class="about-copy lang-zh">
+            <p>放飛設計 Form Factory 是一間位於台北的獨立 3D 動畫與視覺特效工作室，由建築師出身的動畫師 童自全 Roger Tung 創立。</p>
+            <p>Roger 畢業於倫敦大學學院（UCL）巴特萊特建築學院（Bartlett School of Architecture），2017 年取得建築學位。巴特萊特以培養創造力與批判性思維著稱，是全球最具影響力的建築設計學府之一。在那裡，Roger 養成了以空間思維、視覺敘事與形式邏輯看待每一個創作問題的習慣。畢業後，他任職於東京普立茲克獎得主坂茂建築事務所，參與台南美術館屋頂曲面鑲嵌結構的設計工作。</p>
+            <p>這段訓練——建築的嚴謹、空間感知、敘事直覺——正是放飛設計帶入每一個動畫專案的核心。</p>
+            <p>多數工作室以技術為出發點。我們以視覺說故事的方式來做 3D。客戶通常清楚自己想傳達什麼；我們的工作，是找到讓人感受到它的方法。</p>
+            <p>放飛設計專注於科技與精品品牌的產品動畫、MV 視覺特效與品牌商業影片。工作室使用 Houdini、Blender、Cinema 4D、Rhino 與 After Effects 進行創作，合作客戶涵蓋 ASUS、ROG、AORUS、Gigabyte、Binance、OKX、Kavalan、大同、三陽工業與國立故宮博物院。</p>
+          </div>
+
+          <div class="about-copy lang-en">
+            <p>Form Factory is an independent 3D animation and VFX studio based in Taipei, founded by 童自全 Roger Tung — an architect turned animator with a decade of experience across two disciplines.</p>
+            <p>Roger studied architecture at The Bartlett School of Architecture, University College London, graduating in 2017. One of the world's most demanding and unconventional design programs, The Bartlett shaped the way he approaches every project: through spatial thinking, visual storytelling, and the conviction that form is never separate from meaning. Before founding Form Factory, he worked at the office of Pritzker Prize-winning architect Shigeru Ban in Tokyo, where he contributed to the roof tessellation design of the Tainan Art Museum.</p>
+            <p>That foundation — architectural rigour, spatial awareness, narrative instinct — is what Form Factory brings to 3D animation and VFX.</p>
+            <p>Most studios approach this work technically. We approach it as visual storytelling with a rendering engine. Clients usually know what they want to say. Our job is to figure out how to make people feel it.</p>
+            <p>Form Factory specialises in product animation for technology and luxury brands, music video VFX, and brand commercials. The studio works across Houdini, Blender, Cinema 4D, Rhino, and After Effects — and has produced work for clients including ASUS, ROG, AORUS, Gigabyte, Binance, OKX, Kavalan, Tatung, SYM, and the National Palace Museum.</p>
+          </div>
+
+        </div>
+
+        <div class="about-cta">
+          <a href="/works" class="lang-zh">查看作品 →</a>
+          <a href="/contact" class="lang-zh">聯絡我們 →</a>
+          <a href="/works" class="lang-en">View Works →</a>
+          <a href="/contact" class="lang-en">Get in Touch →</a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .about-section {
+    padding: 60px 24px 80px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-inner {
+    max-width: 720px;
+    width: 100%;
+  }
+
+  .about-heading {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 40px 0;
+  }
+
+  .about-layout {
+    width: 100%;
+  }
+
+  .about-copy p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0 0 20px 0;
+  }
+
+  .about-copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-cta {
+    margin-top: 60px;
+    display: flex;
+    gap: 32px;
+  }
+
+  .about-cta a {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    text-decoration: none;
+    border-bottom: 1px solid #111;
+    padding-bottom: 2px;
+    transition: opacity 0.15s ease;
+  }
+
+  .about-cta a:hover {
+    opacity: 0.5;
+  }
+
+  /* Language switching — :global() escapes Astro's scoped CSS */
+  :global(.lang-en) { display: none; }
+  :global(.lang-zh) { display: block; }
+
+  :global(:root[data-lang="en"] .lang-en) { display: block; }
+  :global(:root[data-lang="en"] .lang-zh) { display: none; }
+
+  /* CTA links are inline not block */
+  :global(.about-cta .lang-zh) { display: inline; }
+  :global(.about-cta .lang-en) { display: none; }
+
+  :global(:root[data-lang="en"] .about-cta .lang-en) { display: inline; }
+  :global(:root[data-lang="en"] .about-cta .lang-zh) { display: none; }
+
+  /* Dark mode */
+  :root[data-theme="dark"] .about-heading {
+    color: #f5f5f5;
+  }
+
+  :root[data-theme="dark"] .about-copy p {
+    color: #ccc;
+  }
+
+  :root[data-theme="dark"] .about-cta a {
+    color: #f5f5f5;
+    border-bottom-color: #f5f5f5;
+  }
+
+  /* Mobile */
+  @media (max-width: 960px) {
+    .about-section {
+      padding: 100px 24px 60px;
+    }
+
+    .about-heading {
+      font-size: 26px;
+    }
+
+    .about-copy p {
+      font-size: 15px;
+    }
+
+    .about-cta {
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 40px;
+    }
+  }
+</style>

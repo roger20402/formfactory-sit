@@ -1,0 +1,420 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="dLtWmimkgT_OrZJRoxyMHPkPg_h9lJ4RciGmLnbzS9o" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href="https://www.formfactory.studio/" />
+    <link rel="alternate" hreflang="zh-TW" href="https://www.formfactory.studio/" />
+<link rel="alternate" hreflang="en" href="https://www.formfactory.studio/" />
+<link rel="alternate" hreflang="x-default" href="https://www.formfactory.studio/" />
+    <title>放飛設計 Form Factory | 3D Animation & VFX Studio</title>
+    <meta name="description" content="放飛設計 Form Factory, 來自台北的 3D 動畫與視覺特效製作。Independent 3D animation and VFX from Taipei — for global brands and creative agencies." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.formfactory.studio/" />
+    <meta property="og:title" content="放飛設計 Form Factory | 3D Animation & VFX Studio" />
+    <meta property="og:description" content="放飛設計 Form Factory, 來自台北的 3D 動畫與視覺特效製作。Independent 3D animation and VFX from Taipei — for global brands and creative agencies." />
+    <meta property="og:image" content="https://www.formfactory.studio/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="放飛設計 Form Factory" />
+    <meta property="og:locale" content="zh_TW" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.formfactory.studio/" />
+    <meta name="twitter:title" content="放飛設計 Form Factory | 3D Animation & VFX Studio" />
+    <meta name="twitter:description" content="放飛設計 Form Factory, 來自台北的 3D 動畫與視覺特效製作。Independent 3D animation and VFX from Taipei — for global brands and creative agencies." />
+    <meta name="twitter:image" content="https://www.formfactory.studio/og-image.jpg" />
+
+   <script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "放飛設計 Form Factory",
+  "alternateName": ["Form Factory", "放飛設計"],
+  "url": "https://www.formfactory.studio",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.formfactory.studio/logo.svg",
+    "width": 200,
+    "height": 60
+  },
+  "image": "https://www.formfactory.studio/og-image.jpg",
+  "description": "Independent 3D animation and VFX studio based in Taipei, specialising in product animation, music video VFX, and brand commercials. 來自台北的獨立 3D 動畫與視覺特效工作室，專注於產品動畫、MV 特效與品牌商業製作。",
+  "founder": {
+    "@type": "Person",
+    "name": "Roger Tung 童自全",
+    "jobTitle": "Creative Director & Founder"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Taipei",
+    "addressRegion": "Taipei",
+    "addressCountry": "TW"
+  },
+  "areaServed": ["TW", "HK", "JP", "US", "GB", "SG"],
+  "knowsAbout": [
+    "3D Animation",
+    "Visual Effects",
+    "Product Animation",
+    "Music Video VFX",
+    "Brand Commercials",
+    "Houdini",
+    "Blender",
+    "Cinema 4D"
+  ],
+  "sameAs": [
+    "https://www.instagram.com/form__factory"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "email": "info@formfactory.studio",
+    "availableLanguage": ["Chinese", "English"]
+  }
+})} />
+
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("lang");
+        if (saved === "en") {
+          document.documentElement.setAttribute("data-lang", "en");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+
+    <section class="hero">
+      <video
+        class="hero-video"
+        src="/home/hero.mp4"
+        poster="/home/hero-poster.jpg"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        disablepictureinpicture
+        disableremoteplayback
+      ></video>
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <div class="hero-title">
+          <img src="/home/form-factory-dots.png" alt="Form Factory" class="hero-title-svg" />
+        </div>
+
+        <div class="hero-info">
+          <h1 class="hero-heading">
+            <span class="lang-zh">3D 動畫與視覺特效製作</span>
+            <span class="lang-en">3D Animation & VFX</span>
+          </h1>
+
+          <div class="hero-description">
+            <p class="lang-zh">
+              我們是 放飛設計 Form Factory, 專注於 3D 動畫與視覺特效製作。作品涵蓋產品動畫、MV 特效、品牌與商業作品。合作對象包含科技品牌、唱片公司、廣告代理商與文化機構。
+            </p>
+            <p class="lang-en">
+              We are Form Factory, an independent 3D animation and VFX studio based in Taipei. Our work spans across product animation, music video VFX, brand commercials, and cultural projects — for technology brands, record labels, agencies, and museums.
+            </p>
+          </div>
+
+          <div class="clients">
+            <div class="clients-marquee">
+              <div class="clients-track">
+                <img src="/home/logos/AORUS.png" alt="AORUS" />
+                <img src="/home/logos/ASUS.png" alt="ASUS" />
+                <img src="/home/logos/BINANCE.png" alt="Binance" />
+                <img src="/home/logos/FUTSU.png" alt="Futsu Construction" />
+                <img src="/home/logos/GIGABYTE.png" alt="Gigabyte" />
+                <img src="/home/logos/KAVALAN.png" alt="Kavalan" />
+                <img src="/home/logos/OKX.png" alt="OKX" />
+                <img src="/home/logos/POLY AUCTION.png" alt="Poly Auction" />
+                <img src="/home/logos/ROG.png" alt="ROG" />
+                <img src="/home/logos/SHAOMEI.png" alt="Shaomei" />
+                <img src="/home/logos/SIT.png" alt="Startup Island Taiwan" />
+                <img src="/home/logos/SODICK.png" alt="Sodick" />
+                <img src="/home/logos/SYM.png" alt="SYM" />
+                <img src="/home/logos/TATUNG.png" alt="Tatung" />
+
+                <img src="/home/logos/AORUS.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/ASUS.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/BINANCE.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/FUTSU.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/GIGABYTE.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/KAVALAN.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/OKX.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/POLY AUCTION.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/ROG.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/SHAOMEI.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/SIT.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/SODICK.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/SYM.png" alt="" aria-hidden="true" />
+                <img src="/home/logos/TATUNG.png" alt="" aria-hidden="true" />
+              </div>
+            </div>
+          </div>
+
+          <a href="/works" class="hero-cta">
+            <span class="lang-zh">查看作品 →</span>
+            <span class="lang-en">View our works →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 100px);
+    min-height: 600px;
+    overflow: hidden;
+  }
+
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero-video::-webkit-media-controls,
+  .hero-video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 0 clamp(24px, 8%, 300px);
+  }
+
+  .hero-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-title-svg {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    display: block;
+  }
+
+  .hero-info {
+    color: #fff;
+    max-width: 520px;
+  }
+
+  .hero-heading {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 32px 0;
+    line-height: 1.4;
+    color: #fff;
+  }
+
+  .hero-description p {
+    margin: 0 0 17px 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .clients {
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  .clients-marquee {
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 60px,
+      #000 calc(100% - 60px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 60px,
+      #000 calc(100% - 60px),
+      transparent 100%
+    );
+  }
+
+  .clients-track {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: max-content;
+    animation: scroll-logos 40s linear infinite;
+  }
+
+  .clients-track img {
+    height: 110px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+
+  .clients-track img:hover {
+    opacity: 1;
+  }
+
+  @keyframes scroll-logos {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .clients-marquee:hover .clients-track {
+    animation-play-state: paused;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 12px 24px;
+    background: transparent;
+    color: #fff !important;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .hero-cta:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #fff;
+  }
+
+  /* Block-level language switching for <p> tags */
+  :global(.lang-en) { display: none; }
+  :global(.lang-zh) { display: block; }
+
+  :global(:root[data-lang="en"] .lang-en) { display: block; }
+  :global(:root[data-lang="en"] .lang-zh) { display: none; }
+
+  /* Inline spans inside heading and CTA — ZH visible by default, EN hidden */
+  :global(.hero-heading .lang-zh) { display: inline; }
+  :global(.hero-heading .lang-en) { display: none; }
+  :global(.hero-cta .lang-zh) { display: inline; }
+  :global(.hero-cta .lang-en) { display: none; }
+
+  /* When EN active — swap */
+  :global(:root[data-lang="en"] .hero-heading .lang-en) { display: inline; }
+  :global(:root[data-lang="en"] .hero-heading .lang-zh) { display: none; }
+  :global(:root[data-lang="en"] .hero-cta .lang-en) { display: inline; }
+  :global(:root[data-lang="en"] .hero-cta .lang-zh) { display: none; }
+
+  /* Mobile */
+  @media (max-width: 960px) {
+    .hero {
+      height: auto;
+      min-height: auto;
+    }
+
+    .hero-content {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding: 140px 24px 48px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-title {
+      width: 100%;
+      max-width: 260px;
+    }
+
+    .hero-info {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .hero-heading {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .hero-description p {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .clients {
+      margin-top: 32px;
+      width: 100%;
+    }
+
+    .clients-track img {
+      height: 60px;
+    }
+
+    .clients-marquee {
+      mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+    }
+
+    .clients-marquee:hover .clients-track {
+      animation-play-state: running;
+    }
+
+    .hero-cta {
+      margin-top: 28px;
+      padding: 14px 28px;
+    }
+  }
+</style>

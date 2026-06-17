@@ -1,0 +1,222 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="zh">
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="canonical" href="https://www.formfactory.studio/contact" />
+  <link rel="alternate" hreflang="zh-TW" href="https://www.formfactory.studio/contact" />
+<link rel="alternate" hreflang="en" href="https://www.formfactory.studio/contact" />
+<link rel="alternate" hreflang="x-default" href="https://www.formfactory.studio/contact" />
+  <title>Contact | 放飛設計 Form Factory</title>
+  <meta name="description" content="Contact 放飛設計 Form Factory - 3D Animation and VFX studio based in Taipei." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.formfactory.studio/contact" />
+  <meta property="og:title" content="Contact | Form Factory" />
+  <meta property="og:description" content="Get in touch with Form Factory, a 3D animation and VFX studio based in Taipei." />
+  <meta property="og:image" content="https://www.formfactory.studio/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Form Factory" />
+  <meta property="og:locale" content="zh_TW" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://www.formfactory.studio/contact" />
+  <meta name="twitter:title" content="Contact | Form Factory" />
+  <meta name="twitter:description" content="Get in touch with Form Factory." />
+  <meta name="twitter:image" content="https://www.formfactory.studio/og-image.jpg" />
+
+
+  <script is:inline>
+  (function () {
+    const saved = localStorage.getItem("lang");
+    if (saved === "en") {
+      document.documentElement.setAttribute("data-lang", "en");
+    }
+  })();
+</script>
+</head>
+  <body>
+    <Header />
+
+    <section class="contact-section">
+      <h1 class="contact-heading">Contact Us</h1>
+
+      <div class="contact-layout">
+        <div class="contact-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1720.1472422905401!2d121.53875283548709!3d25.037049031484596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ab1f4f6017b1%3A0xf2fadba7f66db858!2zRm9ybSBGYWN0b3J5IOaUvumjm-ioreioiA!5e0!3m2!1sen!2stw!4v1779093208487!5m2!1sen!2stw"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Form Factory location"
+          ></iframe>
+        </div>
+
+        <form class="contact-form" action="https://formspree.io/f/xnjrqgzw" method="POST">
+          <div class="form-group">
+            <label class="form-label-group">Name</label>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-sublabel">First Name <span class="required">(required)</span></label>
+                <input type="text" name="firstName" required />
+              </div>
+              <div class="form-field">
+                <label class="form-sublabel">Last Name <span class="required">(required)</span></label>
+                <input type="text" name="lastName" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Company</label>
+            <input type="text" name="company" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Phone</label>
+            <input type="tel" name="phone" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Email <span class="required">(required)</span></label>
+            <input type="email" name="email" required />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Tell Us About Your Project <span class="required">(required)</span></label>
+            <textarea name="message" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .contact-section {
+  padding: 60px clamp(24px, 15%, 600px) 80px;
+}
+
+  .contact-heading {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 40px 0;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-map {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    position: sticky;
+    top: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-label-group {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .form-label,
+  .form-sublabel {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .required {
+    font-weight: 400;
+    opacity: 0.5;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fafafa;
+    color: #111;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: #111;
+  }
+
+  .contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+ .form-submit {
+  align-self: flex-start;
+  font-size: 13px;
+  background: none;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: #333;
+  font-family: inherit;
+  margin-top: 8px;
+}
+
+.form-submit:hover {
+  background: #f5f5f5;
+}
+</style>

@@ -1,0 +1,56 @@
+# 放飛設計 Form Factory
+
+> Form Factory (放飛設計) is an independent 3D animation and VFX studio based in Taipei, Taiwan. Founded by architect-turned-animator Roger Tung (童自全), a UCL Bartlett School of Architecture graduate (2017) and former collaborator at Shigeru Ban Architects in Tokyo. The studio specialises in product animation for technology and luxury brands, music video VFX, and brand commercials. Clients include ASUS, ROG, AORUS, Gigabyte, Binance, OKX, Kavalan, Tatung, SYM, and the National Palace Museum. Core tools: Houdini, Blender, Cinema 4D, Rhino, After Effects.
+
+## Site Pages
+
+- [Home](https://www.formfactory.studio/): Studio overview, hero reel, and client logo showcase
+- [Works](https://www.formfactory.studio/works): Full portfolio of 27 projects, filterable by discipline and category
+- [About](https://www.formfactory.studio/about): Studio founding story, Roger Tung's background, creative philosophy
+- [Contact](https://www.formfactory.studio/contact): Project enquiry form and Taipei studio location
+
+## Portfolio — Launch Events
+
+- [ASUS CES 2025 Opening Animation](https://www.formfactory.studio/works/asus-ces-2025-ceo-animation): 3D animation and VFX for ASUS CEO keynote opening at CES 2025 (Oct 2024)
+- [ROG Boundless 2022 Launch Event](https://www.formfactory.studio/works/rog-boundless-2022-launch-event): VFX and 3D animation for ASUS ROG's Boundless 2022 product launch event
+- [ROG CES 2023 Countdown](https://www.formfactory.studio/works/rog-ces-2023-countdown): Online launch event countdown visuals for ASUS ROG at CES 2023
+
+## Portfolio — Product Animation
+
+- [Nomel Lab – Glowpacity](https://www.formfactory.studio/works/nomel-glowpacity): Product animation for Nomel skincare brand
+- [Jowua – 'Performance' Product Animation](https://www.formfactory.studio/works/jowua-performance-product-animation): High-end product animation for Jowua automotive accessories
+- [Intenza Product Animation](https://www.formfactory.studio/works/intenza-product-animation): 3D product animation for Intenza fitness equipment
+- [Durabook R10 Rugged Tablet](https://www.formfactory.studio/works/durabook-r10-rugged-tablet-product-animation): Product animation for the Durabook R10 Copilot+ PC rugged tablet
+- [ASUS Business Solution Animation](https://www.formfactory.studio/works/asus-business-solution-animation): 3D animation showcasing ASUS enterprise product solutions
+- [ASUS Military Grade](https://www.formfactory.studio/works/asus-military-grade-product-animation): Product animation for ASUS military-grade durability certification
+- [ASUS Zenbook Duo Teaser](https://www.formfactory.studio/works/asus-zenbook-duo-teaser): Teaser animation for ASUS Zenbook Duo dual-screen laptop
+- [ASUS Expertbook Duo Teaser](https://www.formfactory.studio/works/asus-expertbook-duo-screen-laptop-teaser): Teaser for ASUS Expertbook Duo dual-screen business laptop
+
+## Portfolio — Music Video VFX
+
+- [Puff Kuo 郭雪芙 – 《我好嗎?》MV](https://www.formfactory.studio/works/puffkuo-how-am-i-mv): VFX and compositing for Puff Kuo's music video
+- [HuaChen 陳華 – 《在極度愛你的日子裡》MV](https://www.formfactory.studio/works/huachen-days-of-profound-love-for-you-mv): VFX for HuaChen's emotional ballad music video
+- [Leehom Wang 王力宏 – 《想見就能相見》MV](https://www.formfactory.studio/works/leehomwang-see-you-soon-mv): VFX contribution to Wang Leehom's music video
+- [Ivy 郁欣 – Aespa Whiplash MV Cover](https://www.formfactory.studio/works/ivy-aespa-whiplash-mv-cover): VFX for Ivy's cover of Aespa's Whiplash
+- [Afterwork Reunion – Project Progeny MV](https://www.formfactory.studio/works/afterwork-reunion-project-progeny-mv): VFX for Afterwork Reunion (伍庭暐)'s music video
+
+## Portfolio — Commercials
+
+- [Shaomei 小美 Chewy Ice Cream Commercial](https://www.formfactory.studio/works/shaomei-chewy-ice-cream-commercial): 3D animation and VFX for Shaomei ice cream TVC
+- [ViewSonic ColorPro VP2776T-4K Commercial](https://www.formfactory.studio/works/viewsonic-vp2776t-commercial): Product commercial for ViewSonic professional monitor
+- [ASUS Anti-Bacterial Guard Commercial](https://www.formfactory.studio/works/asus-anti-bacterial-commercial): Commercial animation for ASUS Anti-Bacterial Guard feature
+- [OKX Pizza Day Promotional Short](https://www.formfactory.studio/works/okx-pizza-day-promotional-short): Branded short film for OKX crypto exchange's Bitcoin Pizza Day campaign
+- [Binance 7th Anniversary Campaign](https://www.formfactory.studio/works/binance-7th-anniversary-merch-campaign): Animated campaign for Binance's 7th anniversary merchandise
+- [AORUS 15 & 17 Commercial](https://www.formfactory.studio/works/aorus-15-and-17-commercial): Product commercial for Gigabyte AORUS gaming laptops
+- [Kavalan Cocktail Commercial](https://www.formfactory.studio/works/kavalan-cocktail-commercial): Branded commercial for Kavalan Taiwanese whisky cocktail series
+- [FitzOn App Commercial](https://www.formfactory.studio/works/fitzon-app-commercial): Animated commercial for the FitzOn fitness app
+- [PoWallet App Commercial](https://www.formfactory.studio/works/powallet-app-commercial): Motion graphics commercial for PoWallet crypto wallet app
+
+## Portfolio — Branding & Other
+
+- [HAY Design Taiwan Flagship Opening](https://www.formfactory.studio/works/haydesign-opening-animation): Opening title animation for HAY Design's Taiwan flagship store launch
+- [Shanghai Commercial Savings Bank 100th Anniversary](https://www.formfactory.studio/works/shanghai-commercial-savings-bank-100th-anniversary): Architectural and brand animation for the bank's centenary, produced with JJP Architects
+
+## Optional
+
+- [Instagram](https://instagram.com/form__factory): Studio work-in-progress and behind-the-scenes content

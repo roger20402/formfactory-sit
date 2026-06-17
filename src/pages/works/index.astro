@@ -1,0 +1,1087 @@
+---
+import "../../styles/global.css";
+import { getCollection } from "astro:content";
+import { disciplines, categories } from "../../config/taxonomies.js";
+import ProjectCard from "../../components/ProjectCard.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const allProjects = await getCollection("projects", ({ data }) => data.published !== false);
+
+const projects = allProjects.sort(
+  (a, b) => b.data.popularity - a.data.popularity
+);
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href="https://www.formfactory.studio/works" />
+    <link rel="alternate" hreflang="zh-TW" href="https://www.formfactory.studio/works" />
+    <link rel="alternate" hreflang="en" href="https://www.formfactory.studio/works" />
+    <link rel="alternate" hreflang="x-default" href="https://www.formfactory.studio/works" />
+    <title>3D 動畫與視覺特效作品集 | 放飛設計 Form Factory</title>
+    <meta name="description" content="探索 放飛設計 Form Factory的 3D 動畫與視覺特效作品 — 涵蓋產品動畫、MV 特效、品牌與商業作品，合作對象包含 ASUS、ROG、Gigabyte、Binance、Kavalan 等。Explore the 3D animation and VFX portfolio of Form Factory, an independent studio based in Taipei." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.formfactory.studio/works" />
+    <meta property="og:title" content="3D 動畫與視覺特效作品集 | Form Factory" />
+    <meta property="og:description" content="探索 放飛設計 Form Factory的 3D 動畫與視覺特效作品。" />
+    <meta property="og:image" content="https://www.formfactory.studio/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="放飛設計 Form Factory" />
+    <meta property="og:locale" content="zh_TW" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.formfactory.studio/works" />
+    <meta name="twitter:title" content="3D 動畫與視覺特效作品集 | Form Factory" />
+    <meta name="twitter:description" content="探索 Form Factory 的 3D 動畫與視覺特效作品集。" />
+    <meta name="twitter:image" content="https://www.formfactory.studio/og-image.jpg" />
+
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("lang");
+        if (saved === "en") {
+          document.documentElement.setAttribute("data-lang", "en");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+
+    <main class="site-container">
+      <header class="page-header">
+        <h1>Works</h1>
+        <div class="header-meta">
+          <p class="result-count">{projects.length} projects</p>
+          <div class="sort-control" id="sort-control">
+            <button class="sort-button" id="sort-button" type="button" aria-expanded="false">
+              <span class="sort-label">Sort by</span>
+              <span class="sort-value" id="sort-value">Popularity</span>
+              <span class="sort-caret" aria-hidden="true">▾</span>
+            </button>
+            <ul class="sort-options" id="sort-options" role="listbox" hidden>
+              <li role="option" data-value="popularity" class="active">Popularity</li>
+              <li role="option" data-value="newest">Newest</li>
+              <li role="option" data-value="oldest">Oldest</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <div class="mobile-filter-bar">
+        <button class="mobile-filter-button" id="mobile-filter-button" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="7" y1="12" x2="17" y2="12"></line>
+            <line x1="10" y1="18" x2="14" y2="18"></line>
+          </svg>
+          <span>Filter</span>
+          <span class="filter-count" id="filter-count" hidden>(0)</span>
+        </button>
+      </div>
+
+      <div class="works-layout">
+        <aside class="filter-sidebar">
+          <div class="filter-group">
+            <h3 class="filter-group-title">製作類型 Discipline</h3>
+            <ul class="filter-options">
+              {disciplines.map((d) => (
+                <li>
+                  <label>
+                    <input type="checkbox" name="discipline" value={d.id} />
+                    <span>{d.zh} / {d.en}</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-group-title">作品類型 Category</h3>
+            <ul class="filter-options">
+              {categories.map((c) => (
+                <li>
+                  <label>
+                    <input type="checkbox" name="category" value={c.id} />
+                    <span>{c.zh} / {c.en}</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <button id="clear-filters" type="button">Clear all</button>
+        </aside>
+
+        <div class="works-grid" id="works-grid">
+          {projects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </div>
+    </main>
+
+    <Footer />
+
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <div class="modal-container" role="dialog" aria-modal="true" aria-label="Project details">
+        <button class="modal-close" id="modal-close" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="6" y1="18" x2="18" y2="6"></line>
+          </svg>
+        </button>
+        <div class="modal-body" id="modal-body">
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-sheet-backdrop" id="filter-sheet-backdrop" hidden></div>
+
+    <div class="filter-sheet" id="filter-sheet" hidden>
+      <div class="filter-sheet-header">
+        <h2 class="filter-sheet-title">Filter</h2>
+        <button class="filter-sheet-close" id="filter-sheet-close" aria-label="Close">×</button>
+      </div>
+
+      <div class="filter-sheet-body" id="filter-sheet-body">
+      </div>
+
+      <div class="filter-sheet-footer">
+        <button class="filter-sheet-clear" id="filter-sheet-clear" type="button">Clear all</button>
+        <button class="filter-sheet-apply" id="filter-sheet-apply" type="button">
+          Apply <span class="filter-sheet-apply-count" id="filter-sheet-apply-count" hidden>(0)</span>
+        </button>
+      </div>
+    </div>
+
+    <script async src="//www.instagram.com/embed.js"></script>
+  </body>
+</html>
+
+<style>
+  html, body {
+    max-width: 100%;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #111;
+  }
+
+  .site-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .page-header {
+    padding: 40px clamp(16px, 4%, 40px) 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .result-count {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+
+  .sort-control {
+    position: relative;
+    font-size: 14px;
+  }
+
+  .sort-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 4px 0;
+    cursor: pointer;
+    color: #111;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  .sort-button .sort-label {
+    color: #666;
+  }
+
+  .sort-button .sort-value {
+    font-weight: 600;
+  }
+
+  .sort-caret {
+    font-size: 24px;
+    transition: transform 0.15s ease;
+  }
+
+  .sort-button[aria-expanded="true"] .sort-caret {
+    transform: rotate(180deg);
+  }
+
+  .sort-options {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 160px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eee;
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    z-index: 10;
+  }
+
+  .sort-options li {
+    padding: 8px 16px;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .sort-options li:hover {
+    background: #f5f5f5;
+  }
+
+  .sort-options li.active {
+    font-weight: 600;
+    color: #111;
+  }
+
+  .works-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  padding: 0 clamp(16px, 4%, 40px) 80px;
+}
+
+  .filter-sidebar {
+    position: sticky;
+    top: 120px;
+    align-self: start;
+  }
+
+  .filter-group {
+    margin-bottom: 32px;
+  }
+
+  .filter-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px 0;
+    color: #111;
+  }
+
+  .filter-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .filter-options li {
+    margin-bottom: 8px;
+  }
+
+  .filter-options label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .filter-options input[type="checkbox"] {
+    cursor: pointer;
+  }
+
+  #clear-filters {
+    font-size: 13px;
+    background: none;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: #333;
+  }
+
+  #clear-filters:hover {
+    background: #f5f5f5;
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    overflow-x: hidden;
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    animation: fadeIn 0.2s ease;
+    cursor: pointer;
+  }
+
+  .modal-backdrop[hidden] {
+    display: none;
+  }
+
+  .modal-container {
+    position: relative;
+    background: #fff;
+    width: 85vw;
+    max-width: 1600px;
+    min-width: 900px;
+    height: 100%;
+    max-height: 85vh;
+    border-radius: 16px;
+    overflow: hidden;
+    animation: slideUp 0.25s ease;
+    cursor: default;
+  }
+
+  .modal-body {
+    height: 100%;
+    width: 100%;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    color: #333;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    border-radius: 50%;
+    z-index: 10;
+    padding: 0;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+
+  .modal-close:hover {
+    background: #fff;
+    color: #000;
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  body.modal-open {
+    overflow: hidden;
+  }
+
+  :global(.project-content) {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    height: 100%;
+    width: 100%;
+  }
+
+  :global(.project-content .media-tab) {
+    padding: 24px 32px;
+    font-size: 16.5px;
+  }
+
+  :global(.project-content .project-info) {
+    padding: 64px 32px 40px 28px;
+  }
+
+  :global(.project-content .project-title) {
+    font-size: 30px;
+  }
+
+  :global(.project-content .project-client) {
+    font-size: 18px;
+  }
+
+  :global(.project-content .project-date) {
+    font-size: 16px;
+  }
+
+  :global(.project-content .tag-group-title) {
+    font-size: 15px;
+  }
+
+  :global(.project-content .tag) {
+    font-size: 14px;
+  }
+
+  :global(.project-content .project-description) {
+    margin: 40px 0 0;
+    font-size: 16px;
+  }
+
+  :global(.project-content .media-item-instagram-vertical .instagram-media) {
+    width: 80% !important;
+  }
+
+  .mobile-filter-bar {
+    display: none;
+  }
+
+  .mobile-filter-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid #ccc;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .mobile-filter-button .filter-count {
+    font-weight: 600;
+  }
+
+  .filter-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .filter-sheet-backdrop[hidden] {
+    display: none;
+  }
+
+  .filter-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    z-index: 201;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideUpSheet 0.25s ease;
+  }
+
+  .filter-sheet[hidden] {
+    display: none;
+  }
+
+  .filter-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px 12px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .filter-sheet-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .filter-sheet-close {
+    background: #f5f5f5;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    color: #333;
+    font-family: inherit;
+  }
+
+  .filter-sheet-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px;
+  }
+
+  .filter-sheet-body .filter-group {
+    margin-bottom: 24px;
+  }
+
+  .filter-sheet-body .filter-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px 0;
+  }
+
+  .filter-sheet-body .filter-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .filter-sheet-body .filter-options li {
+    margin-bottom: 12px;
+  }
+
+  .filter-sheet-body .filter-options label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .filter-sheet-body .filter-options input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .filter-sheet-footer {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px 24px;
+    border-top: 1px solid #eee;
+  }
+
+  .filter-sheet-clear,
+  .filter-sheet-apply {
+    flex: 1;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-family: inherit;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .filter-sheet-clear {
+    background: none;
+    border: 1px solid #ccc;
+    color: #333;
+  }
+
+  .filter-sheet-apply {
+    background: #111;
+    color: #fff;
+    border: none;
+  }
+
+  @keyframes slideUpSheet {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  @media (max-width: 960px) {
+
+    html,
+    body {
+  overflow-x: hidden;
+}
+    .filter-sidebar {
+      display: none;
+    }
+
+    .modal-backdrop {
+      padding: 16px;
+    }
+
+    .modal-container {
+      width: 100%;
+      min-width: 0;
+      max-height: 92vh;
+    }
+
+    .mobile-filter-bar {
+      display: flex;
+      padding: 0 16px 16px;
+    }
+
+    .works-layout {
+      grid-template-columns: 1fr;
+      padding: 0 16px 60px;
+      gap: 0;
+      width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    .works-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: 100%;
+    }
+
+    .page-header {
+      padding: 24px 16px 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .page-header h1 {
+      font-size: 26px;
+    }
+
+    .header-meta {
+      gap: 12px;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+</style>
+
+<script>
+  const grid = document.getElementById("works-grid");
+  const cards = Array.from(grid.querySelectorAll(".project-card"));
+  const disciplineCheckboxes = document.querySelectorAll('input[name="discipline"]');
+  const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
+  const sortControl = document.getElementById("sort-control");
+  const sortButton = document.getElementById("sort-button");
+  const sortValueLabel = document.getElementById("sort-value");
+  const sortOptions = document.getElementById("sort-options");
+  let currentSort = "popularity";
+  const clearButton = document.getElementById("clear-filters");
+  const resultCount = document.querySelector(".result-count");
+
+  const savedScroll = sessionStorage.getItem("worksScrollY");
+  if (savedScroll !== null) {
+    sessionStorage.removeItem("worksScrollY");
+    window.scrollTo({ top: parseInt(savedScroll, 10), behavior: "instant" });
+  }
+
+  function getCheckedValues(checkboxes) {
+    return Array.from(checkboxes)
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+  }
+
+  function cardMatchesFilters(card, checkedDisciplines, checkedCategories) {
+    const cardDisciplines = card.dataset.disciplines.split(",");
+    const cardCategories = card.dataset.categories.split(",");
+
+    const matchesDiscipline =
+      checkedDisciplines.length === 0 ||
+      checkedDisciplines.some((d) => cardDisciplines.includes(d));
+
+    const matchesCategory =
+      checkedCategories.length === 0 ||
+      checkedCategories.some((c) => cardCategories.includes(c));
+
+    return matchesDiscipline && matchesCategory;
+  }
+
+  function applyFilters() {
+    const checkedDisciplines = getCheckedValues(disciplineCheckboxes);
+    const checkedCategories = getCheckedValues(categoryCheckboxes);
+
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const shouldShow = cardMatchesFilters(card, checkedDisciplines, checkedCategories);
+      card.style.display = shouldShow ? "" : "none";
+      if (shouldShow) visibleCount++;
+    });
+
+    resultCount.textContent = `${visibleCount} projects`;
+  }
+
+  function applySort() {
+    const sorted = [...cards].sort((a, b) => {
+      if (currentSort === "popularity") {
+        return parseFloat(b.dataset.popularity) - parseFloat(a.dataset.popularity);
+      }
+      const dateA = new Date(a.dataset.date).getTime();
+      const dateB = new Date(b.dataset.date).getTime();
+      return currentSort === "newest" ? dateB - dateA : dateA - dateB;
+    });
+
+    sorted.forEach((card) => grid.appendChild(card));
+  }
+
+  disciplineCheckboxes.forEach((cb) =>
+    cb.addEventListener("change", applyFilters)
+  );
+  categoryCheckboxes.forEach((cb) =>
+    cb.addEventListener("change", applyFilters)
+  );
+
+  sortButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = sortOptions.hidden === false;
+    sortOptions.hidden = isOpen;
+    sortButton.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  sortOptions.querySelectorAll("li").forEach((li) => {
+    li.addEventListener("click", () => {
+      currentSort = li.dataset.value;
+      sortValueLabel.textContent = li.textContent;
+
+      sortOptions.querySelectorAll("li").forEach((other) =>
+        other.classList.toggle("active", other === li)
+      );
+
+      sortOptions.hidden = true;
+      sortButton.setAttribute("aria-expanded", "false");
+      applySort();
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!sortControl.contains(e.target)) {
+      sortOptions.hidden = true;
+      sortButton.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      sortOptions.hidden = true;
+      sortButton.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  clearButton.addEventListener("click", () => {
+    disciplineCheckboxes.forEach((cb) => (cb.checked = false));
+    categoryCheckboxes.forEach((cb) => (cb.checked = false));
+    applyFilters();
+  });
+
+  const backdrop = document.getElementById("modal-backdrop");
+  const modalBody = document.getElementById("modal-body");
+  const modalClose = document.getElementById("modal-close");
+
+  function getSlugFromProjectUrl(url) {
+    const match = url.match(/\/works\/([^/?#]+)/);
+    return match ? match[1] : null;
+  }
+
+  async function openModal(projectUrl, { pushState = true } = {}) {
+    try {
+      const response = await fetch(projectUrl);
+      if (!response.ok) throw new Error("Failed to load project");
+
+      const html = await response.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const content = doc.querySelector(".project-content");
+
+      if (!content) throw new Error("Project content not found");
+
+      modalBody.innerHTML = "";
+      modalBody.appendChild(content);
+
+      if (window.instgrm) { window.instgrm.Embeds.process(); }
+
+      const modalTabs = content.querySelectorAll(".media-tab");
+
+      let firstVisibleTab = null;
+
+      modalTabs.forEach((tab) => {
+        const tabId = tab.dataset.tab;
+        const matchingPanel = content.querySelector(`.media-panel[data-panel="${tabId}"]`);
+
+        const isEmpty = !matchingPanel ||
+                        matchingPanel.children.length === 0 ||
+                        matchingPanel.querySelector('.media-empty');
+
+        if (isEmpty) {
+          tab.remove();
+          if (matchingPanel) matchingPanel.remove();
+        } else {
+          if (!firstVisibleTab) {
+            firstVisibleTab = tab;
+          }
+
+          tab.addEventListener("click", () => {
+            const currentTabId = tab.dataset.tab;
+            const remainingTabs = content.querySelectorAll(".media-tab");
+            const remainingPanels = content.querySelectorAll(".media-panel");
+
+            remainingTabs.forEach((t) => t.classList.toggle("active", t === tab));
+            remainingPanels.forEach((p) =>
+              p.classList.toggle("active", p.dataset.panel === currentTabId)
+            );
+          });
+        }
+      });
+
+      if (firstVisibleTab) {
+        const firstTabId = firstVisibleTab.dataset.tab;
+        const remainingTabs = content.querySelectorAll(".media-tab");
+        const remainingPanels = content.querySelectorAll(".media-panel");
+
+        remainingTabs.forEach((t) => t.classList.toggle("active", t === firstVisibleTab));
+        remainingPanels.forEach((p) =>
+          p.classList.toggle("active", p.dataset.panel === firstTabId)
+        );
+      }
+
+      backdrop.hidden = false;
+      document.body.classList.add("modal-open");
+
+      if (pushState) {
+        const slug = getSlugFromProjectUrl(projectUrl);
+        if (slug) {
+          const modalUrl = `/works?modal=${slug}`;
+          window.history.pushState({ modal: true, projectUrl }, "", modalUrl);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      window.location.href = projectUrl;
+    }
+  }
+
+  function closeModal({ popState = false } = {}) {
+    backdrop.hidden = true;
+    modalBody.innerHTML = "";
+    document.body.classList.remove("modal-open");
+
+    if (!popState) {
+      window.history.pushState({}, "", "/works");
+    }
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener("click", (e) => {
+      if (window.innerWidth <= 960) {
+        sessionStorage.setItem("worksScrollY", String(window.scrollY));
+        return;
+      }
+
+      e.preventDefault();
+      const url = card.getAttribute("href");
+      openModal(url);
+    });
+
+    if (card.classList.contains("has-reveal")) {
+      const imageWrap = card.querySelector(".card-image");
+      const revealImg = card.querySelector(".card-img-reveal");
+
+      imageWrap.addEventListener("mousemove", (e) => {
+        const rect = imageWrap.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+        revealImg.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+      });
+
+      imageWrap.addEventListener("mouseleave", () => {
+        revealImg.style.clipPath = `inset(0 100% 0 0)`;
+      });
+    }
+  });
+
+  modalClose.addEventListener("click", () => closeModal());
+
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !backdrop.hidden) {
+      closeModal();
+    }
+  });
+
+  window.addEventListener("popstate", (e) => {
+    if (!e.state?.modal) {
+      if (!backdrop.hidden) closeModal({ popState: true });
+    } else if (e.state.projectUrl) {
+      openModal(e.state.projectUrl, { pushState: false });
+    }
+  });
+
+  function checkUrlForModal() {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("modal");
+
+    if (slug) {
+      if (window.innerWidth <= 960) {
+        window.location.replace(`/works/${slug}`);
+        return;
+      }
+
+      const projectUrl = `/works/${slug}`;
+      openModal(projectUrl, { pushState: false });
+      window.history.replaceState({ modal: true, projectUrl }, "", `/works?modal=${slug}`);
+    }
+  }
+
+  checkUrlForModal();
+
+  let resizeTimer;
+  let wasDesktop = window.innerWidth > 960;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const isDesktop = window.innerWidth > 960;
+
+      if (wasDesktop && !isDesktop && !backdrop.hidden) {
+        const params = new URLSearchParams(window.location.search);
+        const modalSlug = params.get("modal");
+        if (modalSlug) {
+          sessionStorage.setItem("worksScrollY", String(window.scrollY));
+          window.location.href = `/works/${modalSlug}`;
+          return;
+        }
+      }
+
+      wasDesktop = isDesktop;
+    }, 200);
+  });
+
+  const mobileFilterButton = document.getElementById("mobile-filter-button");
+  const filterSheet = document.getElementById("filter-sheet");
+  const filterSheetBackdrop = document.getElementById("filter-sheet-backdrop");
+  const filterSheetClose = document.getElementById("filter-sheet-close");
+  const filterSheetBody = document.getElementById("filter-sheet-body");
+  const filterSheetClear = document.getElementById("filter-sheet-clear");
+  const filterSheetApply = document.getElementById("filter-sheet-apply");
+  const filterCountBadge = document.getElementById("filter-count");
+  const sidebar = document.querySelector(".filter-sidebar");
+
+  function openFilterSheet() {
+    filterSheetBody.innerHTML = "";
+    const groups = sidebar.querySelectorAll(".filter-group");
+    groups.forEach((g) => filterSheetBody.appendChild(g.cloneNode(true)));
+
+    syncSheetFromSidebar();
+    updateApplyCount();
+
+    filterSheetBody.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+      cb.addEventListener("change", updateApplyCount);
+    });
+
+    filterSheet.hidden = false;
+    filterSheetBackdrop.hidden = false;
+    document.body.classList.add("modal-open");
+  }
+
+  function closeFilterSheet() {
+    filterSheet.hidden = true;
+    filterSheetBackdrop.hidden = true;
+    document.body.classList.remove("modal-open");
+  }
+
+  function syncSheetFromSidebar() {
+    const sheetCheckboxes = filterSheetBody.querySelectorAll('input[type="checkbox"]');
+    sheetCheckboxes.forEach((sheetCb) => {
+      const realCb = sidebar.querySelector(`input[name="${sheetCb.name}"][value="${sheetCb.value}"]`);
+      if (realCb) sheetCb.checked = realCb.checked;
+    });
+  }
+
+  function applySheetToSidebar() {
+    const sheetCheckboxes = filterSheetBody.querySelectorAll('input[type="checkbox"]');
+    sheetCheckboxes.forEach((sheetCb) => {
+      const realCb = sidebar.querySelector(`input[name="${sheetCb.name}"][value="${sheetCb.value}"]`);
+      if (realCb) realCb.checked = sheetCb.checked;
+    });
+    applyFilters();
+    updateFilterCount();
+  }
+
+  function clearSheet() {
+    const sheetCheckboxes = filterSheetBody.querySelectorAll('input[type="checkbox"]');
+    sheetCheckboxes.forEach((cb) => (cb.checked = false));
+    updateApplyCount();
+  }
+
+  function updateApplyCount() {
+    const checked = filterSheetBody.querySelectorAll('input[type="checkbox"]:checked');
+    const count = checked.length;
+    const badge = document.getElementById("filter-sheet-apply-count");
+
+    if (count === 0) {
+      badge.hidden = true;
+    } else {
+      badge.hidden = false;
+      badge.textContent = `(${count})`;
+    }
+  }
+
+  function updateFilterCount() {
+    const checkedDisciplines = getCheckedValues(disciplineCheckboxes);
+    const checkedCategories = getCheckedValues(categoryCheckboxes);
+    const total = checkedDisciplines.length + checkedCategories.length;
+
+    if (total === 0) {
+      filterCountBadge.hidden = true;
+    } else {
+      filterCountBadge.hidden = false;
+      filterCountBadge.textContent = `(${total})`;
+    }
+  }
+
+  mobileFilterButton.addEventListener("click", openFilterSheet);
+  filterSheetClose.addEventListener("click", closeFilterSheet);
+  filterSheetBackdrop.addEventListener("click", closeFilterSheet);
+
+  filterSheetApply.addEventListener("click", () => {
+    applySheetToSidebar();
+    closeFilterSheet();
+  });
+
+  filterSheetClear.addEventListener("click", clearSheet);
+
+  disciplineCheckboxes.forEach((cb) => cb.addEventListener("change", updateFilterCount));
+  categoryCheckboxes.forEach((cb) => cb.addEventListener("change", updateFilterCount));
+
+  updateFilterCount();
+</script>

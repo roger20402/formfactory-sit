@@ -1,0 +1,226 @@
+---
+import "../../styles/global.css";
+import { getCollection } from "astro:content";
+import Header from "../../components/Header.astro";
+import ProjectContent from "../../components/ProjectContent.astro";
+import Footer from "../../components/Footer.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => data.published !== false);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+// Handle both plain string and bilingual object formats
+const title = typeof project.data.title === 'string'
+  ? project.data.title
+  : (project.data.title?.zh || project.data.title?.en || '');
+
+const shortDescription = typeof project.data.shortDescription === 'string'
+  ? project.data.shortDescription
+  : (project.data.shortDescription?.zh || project.data.shortDescription?.en || '');
+
+const slug = project.id;
+const url = `https://www.formfactory.studio/works/${slug}`;
+const heroImageUrl = project.data.heroImage
+  ? `https://www.formfactory.studio${project.data.heroImage}`
+  : 'https://www.formfactory.studio/og-image.jpg';
+const clientPart = project.data.client ? ` for ${project.data.client}` : '';
+const description = shortDescription || `${title} — A 3D Animation and VFX project by Form Factory${clientPart}.`;
+
+// VideoObject schema — find first video-type media for embedUrl
+function findFirstVideo(project) {
+  const mediaArrays = ['finalWork', 'showreel', 'stills', 'rnd'];
+  for (const key of mediaArrays) {
+    const arr = project.data[key];
+    if (Array.isArray(arr)) {
+      const video = arr.find(item => item.type === 'video' || item.type === 'instagram');
+      if (video) return video;
+    }
+  }
+  return null;
+}
+
+const firstVideo = findFirstVideo(project);
+const uploadDate = project.data.date.toISOString().split('T')[0]; // YYYY-MM-DD
+
+const videoSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": `${title} | 放飛設計 Form Factory`,
+  "description": description,
+  "thumbnailUrl": heroImageUrl,
+  "uploadDate": uploadDate,
+  ...(firstVideo && (() => {
+    const src = firstVideo.src;
+    if (src.startsWith('https://www.youtube.com/embed') ||
+        src.startsWith('https://player.vimeo.com')) {
+      return { "embedUrl": src };
+    }
+    return {}; // Instagram reels — omit embedUrl, schema still valid
+  })()),
+  "publisher": {
+    "@type": "Organization",
+    "name": "放飛設計 Form Factory",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.formfactory.studio/logo.svg"
+    }
+  },
+  "inLanguage": ["zh-TW", "en"]
+};
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href={url} />
+    <link rel="alternate" hreflang="zh-TW" href={url} />
+<link rel="alternate" hreflang="en" href={url} />
+<link rel="alternate" hreflang="x-default" href={url} />
+    <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
+    <title>{title} | 放飛設計 Form Factory</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={`${title} | 放飛設計 Form Factory`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={heroImageUrl} />
+    <meta property="og:site_name" content="放飛設計 Form Factory" />
+    <meta property="og:locale" content="zh_TW" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={url} />
+    <meta name="twitter:title" content={`${title} | 放飛設計 Form Factory`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={heroImageUrl} />
+
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("lang");
+        if (saved === "en") {
+          document.documentElement.setAttribute("data-lang", "en");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+
+    <div class="project-page-wrap">
+      <ProjectContent project={project} />
+    </div>
+
+    <a href="/works" class="desktop-back-button" aria-label="Back to works">
+      ← Back to works
+    </a>
+    <script async src="//www.instagram.com/embed.js"></script>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #111;
+  }
+
+  .project-page-wrap {
+    padding: 40px clamp(24px, 8%, 360px) 80px;
+    min-height: calc(100vh - 200px);
+  }
+
+  @media (max-width: 960px) {
+    .project-page-wrap {
+      padding: 0;
+    }
+  }
+
+  /* Standalone page uses a slightly different grid ratio than the modal */
+  :global(.project-content) {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Standalone page: undo the modal's internal scroll containers
+     so the whole page scrolls naturally instead */
+  :global(.project-page-wrap .project-content .project-media) {
+    overflow: visible;
+  }
+
+  :global(.project-page-wrap .project-content .media-panels) {
+    overflow-y: visible;
+  }
+
+  :global(.project-page-wrap .project-content .project-info) {
+    overflow-y: visible;
+  }
+
+  /* Floating back-to-works button — standalone desktop only */
+  .desktop-back-button {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    padding: 18px 32px;
+    background: rgba(20, 20, 20, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 999px;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .desktop-back-button:hover {
+    background: rgba(40, 40, 40, 0.95);
+    transform: translateY(-1px);
+  }
+
+  /* Hide on mobile — the mobile floating nav already has a back button */
+  @media (max-width: 960px) {
+    .desktop-back-button {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // ============================================
+  // Tab switching for standalone project page
+  // ============================================
+  const content = document.querySelector(".project-content");
+  if (content) {
+    const tabs = content.querySelectorAll(".media-tab");
+    const panels = content.querySelectorAll(".media-panel");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const tabId = tab.dataset.tab;
+        tabs.forEach((t) => t.classList.toggle("active", t === tab));
+        panels.forEach((p) =>
+          p.classList.toggle("active", p.dataset.panel === tabId)
+        );
+      });
+    });
+  }
+</script>

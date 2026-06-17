@@ -1,0 +1,163 @@
+---
+const { project } = Astro.props;
+
+const titleZh = typeof project.data.title === 'string'
+  ? project.data.title
+  : (project.data.title?.zh || project.data.title?.en || '');
+
+const titleEn = typeof project.data.title === 'string'
+  ? project.data.title
+  : (project.data.title?.en || project.data.title?.zh || '');
+
+const client = project.data.client;
+const heroImage = project.data.heroImage;
+const revealImage = project.data.revealImage;
+const slug = project.id;
+const disciplines = project.data.disciplines.join(",");
+const categories = project.data.categories.join(",");
+const date = project.data.date.toISOString();
+const href = `/works/${slug}`;
+const cardClass = revealImage ? "project-card has-reveal" : "project-card";
+---
+<a class={cardClass} href={href} data-disciplines={disciplines} data-categories={categories} data-date={date} data-popularity={project.data.popularity}>
+  <div class="card-image">
+    <img data-src={heroImage} src="" alt={titleZh} class="card-img-base lazy" />
+    {revealImage && <img data-src={revealImage} src="" alt="" class="card-img-reveal lazy" />}
+  </div>
+  <div class="card-info">
+    <h3 class="card-title">
+      <span class="lang-zh">{titleZh}</span>
+      <span class="lang-en">{titleEn}</span>
+    </h3>
+    <p class="card-client">{client}</p>
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s ease;
+    touch-action: pan-y;
+  }
+
+  .project-card:not(.has-reveal):hover {
+    opacity: 0.85;
+  }
+
+  .card-image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+    margin-bottom: 12px;
+    border-radius: 15px;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-img-reveal {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+  }
+
+  .project-card.is-touching .card-img-reveal {
+    clip-path: inset(0 calc(100% - (var(--touch-clip) * 100%)) 0 0);
+  }
+
+  .project-card:not(.is-touching) .card-img-reveal {
+    transition: clip-path 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #111;
+  }
+
+  .card-client {
+    font-size: 15px;
+    color: #666;
+    margin: 0;
+  }
+
+  @media (max-width: 960px) {
+    .card-title {
+      font-size: 14px;
+    }
+
+    .card-client {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<script>
+  // ============================================
+  // LAZY LOADING via IntersectionObserver
+  // ============================================
+  const lazyImages = document.querySelectorAll('img.lazy');
+
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        const src = img.dataset.src;
+        if (src) {
+          img.src = src;
+          img.removeAttribute('data-src');
+          img.classList.remove('lazy');
+        }
+        imageObserver.unobserve(img);
+      }
+    });
+  }, {
+    rootMargin: '200px 0px', // start loading 200px before the image enters viewport
+    threshold: 0
+  });
+
+  lazyImages.forEach((img) => imageObserver.observe(img));
+
+  // ============================================
+  // MOBILE SCRUBBER INTERACTION
+  // ============================================
+  const revealCards = document.querySelectorAll('.project-card.has-reveal');
+
+  revealCards.forEach(card => {
+    let bounds = null;
+
+    card.addEventListener('touchstart', (e) => {
+      bounds = card.getBoundingClientRect();
+      card.classList.add('is-touching');
+      handleScrub(e.touches[0]);
+    }, { passive: true });
+
+    card.addEventListener('touchmove', (e) => {
+      if (!bounds) return;
+      handleScrub(e.touches[0]);
+    }, { passive: true });
+
+    card.addEventListener('touchend', () => {
+      card.classList.remove('is-touching');
+      card.style.removeProperty('--touch-clip');
+      bounds = null;
+    });
+
+    function handleScrub(touchElement) {
+      const localX = touchElement.clientX - bounds.left;
+      let percentage = localX / bounds.width;
+      percentage = Math.max(0, Math.min(1, percentage));
+      card.style.setProperty('--touch-clip', percentage.toString());
+    }
+  });
+</script>

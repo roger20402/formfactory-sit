@@ -1,0 +1,666 @@
+---
+import { render } from "astro:content";
+import { disciplines, categories, mediaTabs } from "../config/taxonomies.js";
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+function getDisciplineLabel(id) {
+  const found = disciplines.find((d) => d.id === id);
+  return found ? `${found.zh} / ${found.en}` : id;
+}
+
+function getCategoryLabel(id) {
+  const found = categories.find((c) => c.id === id);
+  return found ? `${found.zh} / ${found.en}` : id;
+}
+
+const rawTitle = project.data.title;
+const titleZh = typeof rawTitle === 'string'
+  ? rawTitle
+  : (rawTitle?.zh || rawTitle?.en || '');
+const titleEn = typeof rawTitle === 'string'
+  ? rawTitle
+  : (rawTitle?.en || rawTitle?.zh || '');
+
+const client = project.data.client;
+const date = project.data.date;
+const monthShort = date.toLocaleString("en-US", { month: "short" });
+const formattedDate = `${date.getFullYear()} ${monthShort}`;
+
+const availableTabs = mediaTabs.filter((tab) => {
+  const content = project.data[tab.id];
+  return Array.isArray(content) && content.length > 0;
+});
+
+const hasDescription = project.body && project.body.trim().length > 0;
+const hasStills = Array.isArray(project.data.stills) && project.data.stills.length > 0;
+---
+
+<div class="project-content" data-slug={project.id}>
+
+  {/* ============================================
+      DESKTOP LAYOUT
+      ============================================ */}
+  <div class="project-media desktop-only">
+
+    {availableTabs.length > 0 && (
+      <div class="media-tabs" role="tablist">
+        {availableTabs.map((tab, index) => (
+          <button
+            type="button"
+            class:list={["media-tab", { active: index === 0 }]}
+            role="tab"
+            data-tab={tab.id}
+          >
+            {tab.zh} <span class="tab-count">({project.data[tab.id].length})</span>
+          </button>
+        ))}
+      </div>
+    )}
+
+    <div class="media-panels">
+      {availableTabs.map((tab, index) => (
+        <div
+          class:list={["media-panel", { active: index === 0 }]}
+          data-panel={tab.id}
+          role="tabpanel"
+        >
+          {project.data[tab.id].map((item) => (
+            item.type === "image" ? (
+              <img src={item.src} alt={item.caption || ""} class="media-item-image" />
+            ) : item.type === "video" ? (
+              <div class="media-item-video">
+                <iframe
+                  src={item.src}
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            ) : item.type === "instagram" ? (
+              <div class:list={["media-item-instagram", `media-item-instagram-${item.orientation || "horizontal"}`]}>
+                <blockquote
+                  class="instagram-media"
+                  data-instgrm-captioned
+                  data-instgrm-permalink={item.src}
+                  data-instgrm-version="14"
+                ></blockquote>
+              </div>
+            ) : null
+          ))}
+        </div>
+      ))}
+
+      {availableTabs.length === 0 && (
+        <p class="media-empty">No media yet.</p>
+      )}
+    </div>
+  </div>
+
+  <aside class="project-info desktop-only">
+    <h1 class="project-title">
+      <span class="lang-zh">{titleZh}</span>
+      <span class="lang-en">{titleEn}</span>
+    </h1>
+    <p class="project-client">{client}</p>
+    <p class="project-date">{formattedDate}</p>
+
+    <div class="tag-group">
+      <h3 class="tag-group-title">製作類型 Discipline</h3>
+      <ul class="tag-list">
+        {project.data.disciplines.map((id) => (
+          <li class="tag">{getDisciplineLabel(id)}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="tag-group">
+      <h3 class="tag-group-title">作品類型 Category</h3>
+      <ul class="tag-list">
+        {project.data.categories.map((id) => (
+          <li class="tag">{getCategoryLabel(id)}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="project-description">
+      <Content />
+    </div>
+  </aside>
+
+  {/* ============================================
+      MOBILE LAYOUT (≤ 960px)
+      ============================================ */}
+  <div class="mobile-layout mobile-only">
+
+    <header class="mobile-header">
+      <h1 class="mobile-title">
+        <span class="lang-zh">{titleZh}</span>
+        <span class="lang-en">{titleEn}</span>
+      </h1>
+      <p class="mobile-client">{client}</p>
+      <p class="mobile-date">{formattedDate}</p>
+
+      <div class="mobile-tag-group">
+        <h3 class="mobile-tag-group-title">製作類型 Discipline</h3>
+        <ul class="mobile-tag-list">
+          {project.data.disciplines.map((id) => (
+            <li class="mobile-tag">{getDisciplineLabel(id)}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="mobile-tag-group">
+        <h3 class="mobile-tag-group-title">作品類型 Category</h3>
+        <ul class="mobile-tag-list">
+          {project.data.categories.map((id) => (
+            <li class="mobile-tag">{getCategoryLabel(id)}</li>
+          ))}
+        </ul>
+      </div>
+    </header>
+
+    <div class="mobile-panels">
+
+      {hasStills && (
+        <div class="mobile-panel active" data-mobile-panel="stills">
+          <div class="mobile-stills-content"
+               data-stills={JSON.stringify(project.data.stills)}>
+            <div class="mobile-description-source" hidden>
+              <Content />
+            </div>
+            <div class="mobile-interleaved-output"></div>
+          </div>
+        </div>
+      )}
+
+      {!hasStills && hasDescription && (
+        <div class="mobile-panel active" data-mobile-panel="intro">
+          <div class="mobile-intro-content">
+            <Content />
+          </div>
+        </div>
+      )}
+
+      {Array.isArray(project.data.finalWork) && project.data.finalWork.length > 0 && (
+        <div class:list={["mobile-panel", { active: !hasStills && !hasDescription }]} data-mobile-panel="finalWork">
+          {project.data.finalWork.map((item) => (
+            item.type === "image" ? (
+              <img src={item.src} alt={item.caption || ""} class="mobile-media-image" />
+            ) : item.type === "video" ? (
+              <div class="mobile-media-video">
+                <iframe src={item.src} frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            ) : item.type === "instagram" ? (
+              <div class:list={["mobile-media-instagram", `mobile-media-instagram-${item.orientation || "horizontal"}`]}>
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink={item.src} data-instgrm-version="14"></blockquote>
+              </div>
+            ) : null
+          ))}
+        </div>
+      )}
+
+      {Array.isArray(project.data.showreel) && project.data.showreel.length > 0 && (
+        <div class="mobile-panel" data-mobile-panel="showreel">
+          {project.data.showreel.map((item) => (
+            item.type === "image" ? (
+              <img src={item.src} alt={item.caption || ""} class="mobile-media-image" />
+            ) : item.type === "video" ? (
+              <div class="mobile-media-video">
+                <iframe src={item.src} frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            ) : item.type === "instagram" ? (
+              <div class:list={["mobile-media-instagram", `mobile-media-instagram-${item.orientation || "horizontal"}`]}>
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink={item.src} data-instgrm-version="14"></blockquote>
+              </div>
+            ) : null
+          ))}
+        </div>
+      )}
+
+      {Array.isArray(project.data.rnd) && project.data.rnd.length > 0 && (
+        <div class="mobile-panel" data-mobile-panel="rnd">
+          {project.data.rnd.map((item) => (
+            item.type === "image" ? (
+              <img src={item.src} alt={item.caption || ""} class="mobile-media-image" />
+            ) : item.type === "video" ? (
+              <div class="mobile-media-video">
+                <iframe src={item.src} frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            ) : item.type === "instagram" ? (
+              <div class:list={["mobile-media-instagram", `mobile-media-instagram-${item.orientation || "horizontal"}`]}>
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink={item.src} data-instgrm-version="14"></blockquote>
+              </div>
+            ) : null
+          ))}
+        </div>
+      )}
+    </div>
+
+    <nav class="mobile-floating-nav">
+      <div class="mobile-floating-scroll">
+        <a href="/works" class="mobile-nav-button mobile-nav-back">← Back</a>
+
+        {hasStills && (
+          <button type="button" class="mobile-nav-button active" data-mobile-tab="stills">
+            作品畫面 ({project.data.stills.length})
+          </button>
+        )}
+
+        {!hasStills && hasDescription && (
+          <button type="button" class="mobile-nav-button active" data-mobile-tab="intro">
+            介紹
+          </button>
+        )}
+
+        {Array.isArray(project.data.finalWork) && project.data.finalWork.length > 0 && (
+          <button
+            type="button"
+            class:list={["mobile-nav-button", { active: !hasStills && !hasDescription }]}
+            data-mobile-tab="finalWork"
+          >
+            完整作品 ({project.data.finalWork.length})
+          </button>
+        )}
+
+        {Array.isArray(project.data.showreel) && project.data.showreel.length > 0 && (
+          <button type="button" class="mobile-nav-button" data-mobile-tab="showreel">
+            作品片段 ({project.data.showreel.length})
+          </button>
+        )}
+
+        {Array.isArray(project.data.rnd) && project.data.rnd.length > 0 && (
+          <button type="button" class="mobile-nav-button" data-mobile-tab="rnd">
+            R&D ({project.data.rnd.length})
+          </button>
+        )}
+      </div>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .mobile-layout {
+    width: 100%;
+    padding-bottom: 100px;
+  }
+
+  .mobile-header {
+    padding: 24px 20px 20px;
+  }
+
+  .mobile-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    line-height: 1.25;
+    color: #111;
+  }
+
+  .mobile-client {
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 4px 0;
+    font-style: italic;
+  }
+
+  .mobile-date {
+    font-size: 14px;
+    color: #888;
+    margin: 0 0 20px 0;
+  }
+
+  .mobile-interleaved-output img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  .mobile-tag-group {
+    margin-bottom: 16px;
+  }
+
+  .mobile-tag-group-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    margin: 0 0 8px 0;
+  }
+
+  .mobile-tag-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .mobile-tag {
+    font-size: 13px;
+    padding: 4px 10px;
+    background: #f5f5f5;
+    border-radius: 999px;
+    color: #333;
+  }
+
+  .mobile-panels {
+    padding: 0 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .mobile-panel {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .mobile-interleaved-output,
+  .mobile-intro-content {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .mobile-interleaved-output img,
+  .mobile-media-image {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .mobile-panel {
+    display: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .mobile-panel.active {
+    display: block;
+  }
+
+  .mobile-interleaved-output {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mobile-interleaved-output p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #333;
+  }
+
+  .mobile-interleaved-output img {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+  }
+
+  .mobile-intro-content {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #333;
+  }
+
+  .mobile-intro-content p {
+    margin: 0 0 16px 0;
+  }
+
+  .mobile-media-image {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  .mobile-media-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .mobile-media-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mobile-media-instagram {
+    width: 100%;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .mobile-media-instagram-horizontal :global(.instagram-media) {
+    max-width: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  .mobile-media-instagram-vertical :global(.instagram-media) {
+    max-width: 400px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  .mobile-media-instagram-square :global(.instagram-media) {
+    max-width: 400px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  .mobile-floating-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 16px;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .mobile-floating-scroll {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: rgba(20, 20, 20, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 999px;
+    overflow-x: auto;
+    max-width: calc(100% - 24px);
+    scrollbar-width: none;
+    pointer-events: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .mobile-floating-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-nav-button {
+    flex-shrink: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .mobile-nav-button:hover {
+    color: #fff;
+  }
+
+  .mobile-nav-button.active {
+    background: #fff;
+    color: #111;
+    font-weight: 600;
+  }
+
+  .mobile-nav-back {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  @media (max-width: 960px) {
+    .project-content {
+      display: block !important;
+      grid-template-columns: none !important;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+  }
+</style>
+
+<script>
+  function appendStillToContainer(still, container) {
+    if (still.type === "image") {
+      const img = document.createElement("img");
+      img.src = still.src;
+      img.alt = still.caption || "";
+      img.loading = "lazy";
+      container.appendChild(img);
+    } else if (still.type === "video") {
+      const wrap = document.createElement("div");
+      wrap.className = "mobile-media-video";
+      const iframe = document.createElement("iframe");
+      iframe.src = still.src;
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
+      iframe.setAttribute("allowfullscreen", "");
+      wrap.appendChild(iframe);
+      container.appendChild(wrap);
+    }
+  }
+
+  function buildInterleavedContent() {
+    const stillsContent = document.querySelector(".mobile-stills-content");
+    if (!stillsContent) return;
+
+    const output = stillsContent.querySelector(".mobile-interleaved-output");
+    if (!output || output.dataset.built === "true") return;
+
+    const stills = JSON.parse(stillsContent.dataset.stills || "[]");
+    const descSource = stillsContent.querySelector(".mobile-description-source");
+
+    const allParagraphs = [];
+    if (descSource) {
+      const zhDiv = descSource.querySelector(".lang-zh");
+      const enDiv = descSource.querySelector(".lang-en");
+
+      if (zhDiv || enDiv) {
+        if (zhDiv) {
+          zhDiv.querySelectorAll("p").forEach((p) => {
+            allParagraphs.push({ html: p.innerHTML, lang: "zh" });
+          });
+        }
+        if (enDiv) {
+          enDiv.querySelectorAll("p").forEach((p) => {
+            allParagraphs.push({ html: p.innerHTML, lang: "en" });
+          });
+        }
+      } else {
+        descSource.querySelectorAll("p").forEach((p) => {
+          allParagraphs.push({ html: p.innerHTML, lang: null });
+        });
+      }
+    }
+
+    const zhParagraphs = allParagraphs.filter((p) => p.lang === "zh" || p.lang === null);
+    const enParagraphs = allParagraphs.filter((p) => p.lang === "en");
+
+    if (zhParagraphs.length > 0) {
+      const zhWrap = document.createElement("div");
+      zhWrap.className = "lang-zh";
+      const maxLen = Math.max(zhParagraphs.length, stills.length);
+      for (let i = 0; i < maxLen; i++) {
+        if (i < zhParagraphs.length) {
+          const p = document.createElement("p");
+          p.innerHTML = zhParagraphs[i].html;
+          zhWrap.appendChild(p);
+        }
+        if (i < stills.length) {
+          appendStillToContainer(stills[i], zhWrap);
+        }
+      }
+      output.appendChild(zhWrap);
+    }
+
+    if (enParagraphs.length > 0) {
+      const enWrap = document.createElement("div");
+      enWrap.className = "lang-en";
+      const maxLen = Math.max(enParagraphs.length, stills.length);
+      for (let i = 0; i < maxLen; i++) {
+        if (i < enParagraphs.length) {
+          const p = document.createElement("p");
+          p.innerHTML = enParagraphs[i].html;
+          enWrap.appendChild(p);
+        }
+        if (i < stills.length) {
+          appendStillToContainer(stills[i], enWrap);
+        }
+      }
+      output.appendChild(enWrap);
+    }
+
+    if (allParagraphs.length === 0 && stills.length > 0) {
+      stills.forEach((still) => appendStillToContainer(still, output));
+    }
+
+    output.dataset.built = "true";
+  }
+
+  function attachMobileTabHandlers() {
+    const navButtons = document.querySelectorAll(".mobile-nav-button[data-mobile-tab]");
+    const panels = document.querySelectorAll(".mobile-panel");
+
+    navButtons.forEach((btn) => {
+      if (btn.dataset.bound === "true") return;
+      btn.dataset.bound = "true";
+
+      btn.addEventListener("click", () => {
+        const targetTab = btn.dataset.mobileTab;
+        navButtons.forEach((b) => b.classList.toggle("active", b === btn));
+        panels.forEach((p) =>
+          p.classList.toggle("active", p.dataset.mobilePanel === targetTab)
+        );
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (window.instgrm) window.instgrm.Embeds.process();
+      });
+    });
+  }
+
+  function initMobileProjectLayout() {
+    buildInterleavedContent();
+    attachMobileTabHandlers();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileProjectLayout);
+  } else {
+    initMobileProjectLayout();
+  }
+</script>
