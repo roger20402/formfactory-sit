@@ -6,44 +6,43 @@ import Footer from "../components/Footer.astro";
 
 <html lang="zh">
   <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="canonical" href="https://www.formfactory.studio/contact" />
-  <link rel="alternate" hreflang="zh-TW" href="https://www.formfactory.studio/contact" />
-<link rel="alternate" hreflang="en" href="https://www.formfactory.studio/contact" />
-<link rel="alternate" hreflang="x-default" href="https://www.formfactory.studio/contact" />
-  <title>Contact | 放飛設計 Form Factory</title>
-  <meta name="description" content="Contact 放飛設計 Form Factory - 3D Animation and VFX studio based in Taipei." />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href="https://www.formfactory.studio/contact" />
+    <link rel="alternate" hreflang="zh-TW" href="https://www.formfactory.studio/contact" />
+    <link rel="alternate" hreflang="en" href="https://www.formfactory.studio/contact" />
+    <link rel="alternate" hreflang="x-default" href="https://www.formfactory.studio/contact" />
+    <title>Contact | 放飛設計 Form Factory</title>
+    <meta name="description" content="Contact 放飛設計 Form Factory - 3D Animation and VFX studio based in Taipei." />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.formfactory.studio/contact" />
-  <meta property="og:title" content="Contact | Form Factory" />
-  <meta property="og:description" content="Get in touch with Form Factory, a 3D animation and VFX studio based in Taipei." />
-  <meta property="og:image" content="https://www.formfactory.studio/og-image.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:site_name" content="Form Factory" />
-  <meta property="og:locale" content="zh_TW" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.formfactory.studio/contact" />
+    <meta property="og:title" content="Contact | Form Factory" />
+    <meta property="og:description" content="Get in touch with Form Factory, a 3D animation and VFX studio based in Taipei." />
+    <meta property="og:image" content="https://www.formfactory.studio/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Form Factory" />
+    <meta property="og:locale" content="zh_TW" />
 
-  <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://www.formfactory.studio/contact" />
-  <meta name="twitter:title" content="Contact | Form Factory" />
-  <meta name="twitter:description" content="Get in touch with Form Factory." />
-  <meta name="twitter:image" content="https://www.formfactory.studio/og-image.jpg" />
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.formfactory.studio/contact" />
+    <meta name="twitter:title" content="Contact | Form Factory" />
+    <meta name="twitter:description" content="Get in touch with Form Factory." />
+    <meta name="twitter:image" content="https://www.formfactory.studio/og-image.jpg" />
 
-
-  <script is:inline>
-  (function () {
-    const saved = localStorage.getItem("lang");
-    if (saved === "en") {
-      document.documentElement.setAttribute("data-lang", "en");
-    }
-  })();
-</script>
-</head>
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("lang");
+        if (saved === "en") {
+          document.documentElement.setAttribute("data-lang", "en");
+        }
+      })();
+    </script>
+  </head>
   <body>
     <Header />
 
@@ -116,8 +115,8 @@ import Footer from "../components/Footer.astro";
   }
 
   .contact-section {
-  padding: 60px clamp(24px, 15%, 600px) 80px;
-}
+    padding: 60px clamp(24px, 15%, 600px) 80px;
+  }
 
   .contact-heading {
     font-size: 32px;
@@ -136,7 +135,7 @@ import Footer from "../components/Footer.astro";
     width: 100%;
     aspect-ratio: 4 / 5;
     position: sticky;
-    top: 24px;
+    top: 120px;
     border-radius: 12px;
     overflow: hidden;
   }
@@ -204,19 +203,48 @@ import Footer from "../components/Footer.astro";
     min-height: 120px;
   }
 
- .form-submit {
-  align-self: flex-start;
-  font-size: 13px;
-  background: none;
-  border: 1px solid #ccc;
-  padding: 6px 12px;
-  cursor: pointer;
-  color: #333;
-  font-family: inherit;
-  margin-top: 8px;
-}
+  .form-submit {
+    align-self: flex-start;
+    font-size: 13px;
+    background: none;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: #333;
+    font-family: inherit;
+    margin-top: 8px;
+  }
 
-.form-submit:hover {
-  background: #f5f5f5;
-}
+  .form-submit:hover {
+    background: #f5f5f5;
+  }
+
+  @media (max-width: 960px) {
+    html, body {
+      overflow-x: hidden;
+    }
+
+    .contact-section {
+      padding: 100px 24px 60px;
+      overflow-x: hidden;
+    }
+
+    .contact-heading {
+      font-size: 26px;
+    }
+
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .contact-map {
+      position: static;
+      aspect-ratio: 4 / 3;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
