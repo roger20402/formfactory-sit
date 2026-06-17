@@ -11,8 +11,8 @@ import Footer from "../components/Footer.astro";
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="canonical" href="https://www.formfactory.studio/about" />
     <link rel="alternate" hreflang="zh-TW" href="https://www.formfactory.studio/about" />
-<link rel="alternate" hreflang="en" href="https://www.formfactory.studio/about" />
-<link rel="alternate" hreflang="x-default" href="https://www.formfactory.studio/about" />
+    <link rel="alternate" hreflang="en" href="https://www.formfactory.studio/about" />
+    <link rel="alternate" hreflang="x-default" href="https://www.formfactory.studio/about" />
     <title>About | 放飛設計 Form Factory</title>
     <meta name="description" content="放飛設計 Form Factory is an independent 3D animation and VFX studio based in Taipei, founded by UCL Bartlett-trained architect Roger." />
 
@@ -48,7 +48,10 @@ import Footer from "../components/Footer.astro";
 
     <section class="about-section">
       <div class="about-inner">
-        <h1 class="about-heading">About</h1>
+        <h1 class="about-heading">
+          <span class="lang-zh">關於我們</span>
+          <span class="lang-en">About</span>
+        </h1>
 
         <div class="about-layout">
 
@@ -57,7 +60,7 @@ import Footer from "../components/Footer.astro";
             <p>Roger 畢業於倫敦大學學院（UCL）巴特萊特建築學院（Bartlett School of Architecture），2017 年取得建築學位。巴特萊特以培養創造力與批判性思維著稱，是全球最具影響力的建築設計學府之一。在那裡，Roger 養成了以空間思維、視覺敘事與形式邏輯看待每一個創作問題的習慣。畢業後，他任職於東京普立茲克獎得主坂茂建築事務所，參與台南美術館屋頂曲面鑲嵌結構的設計工作。</p>
             <p>這段訓練——建築的嚴謹、空間感知、敘事直覺——正是放飛設計帶入每一個動畫專案的核心。</p>
             <p>多數工作室以技術為出發點。我們以視覺說故事的方式來做 3D。客戶通常清楚自己想傳達什麼；我們的工作，是找到讓人感受到它的方法。</p>
-            <p>放飛設計專注於科技與精品品牌的產品動畫、MV 視覺特效與品牌商業影片。工作室使用 Houdini、Blender、Cinema 4D、Rhino 與 After Effects 進行創作，合作客戶涵蓋 ASUS、ROG、AORUS、Gigabyte、Binance、OKX、Kavalan、大同、三陽工業與國立故宮博物院。</p>
+            <p>放飛設計專注於科技與精品品牌的產品動畫、MV 視覺特效與品牌商業影片，合作客戶涵蓋 ASUS、ROG、AORUS、Gigabyte、Binance、OKX、Kavalan、大同、三陽工業與國立故宮博物院。</p>
           </div>
 
           <div class="about-copy lang-en">
@@ -65,7 +68,7 @@ import Footer from "../components/Footer.astro";
             <p>Roger studied architecture at The Bartlett School of Architecture, University College London, graduating in 2017. One of the world's most demanding and unconventional design programs, The Bartlett shaped the way he approaches every project: through spatial thinking, visual storytelling, and the conviction that form is never separate from meaning. Before founding Form Factory, he worked at the office of Pritzker Prize-winning architect Shigeru Ban in Tokyo, where he contributed to the roof tessellation design of the Tainan Art Museum.</p>
             <p>That foundation — architectural rigour, spatial awareness, narrative instinct — is what Form Factory brings to 3D animation and VFX.</p>
             <p>Most studios approach this work technically. We approach it as visual storytelling with a rendering engine. Clients usually know what they want to say. Our job is to figure out how to make people feel it.</p>
-            <p>Form Factory specialises in product animation for technology and luxury brands, music video VFX, and brand commercials. The studio works across Houdini, Blender, Cinema 4D, Rhino, and After Effects — and has produced work for clients including ASUS, ROG, AORUS, Gigabyte, Binance, OKX, Kavalan, Tatung, SYM, and the National Palace Museum.</p>
+            <p>Form Factory specialises in product animation for technology and luxury brands, music video VFX, and brand commercials — with clients including ASUS, ROG, AORUS, Gigabyte, Binance, OKX, Kavalan, Tatung, SYM, and the National Palace Museum.</p>
           </div>
 
         </div>
@@ -141,12 +144,21 @@ import Footer from "../components/Footer.astro";
     opacity: 0.5;
   }
 
-  /* Language switching — :global() escapes Astro's scoped CSS */
+  /* Language switching */
   :global(.lang-en) { display: none; }
   :global(.lang-zh) { display: block; }
 
   :global(:root[data-lang="en"] .lang-en) { display: block; }
   :global(:root[data-lang="en"] .lang-zh) { display: none; }
+
+  /* Heading spans are inline */
+  .about-heading .lang-zh,
+  .about-heading .lang-en {
+    display: inline;
+  }
+
+  :global(:root[data-lang="en"]) .about-heading .lang-en { display: inline; }
+  :global(:root[data-lang="en"]) .about-heading .lang-zh { display: none; }
 
   /* CTA links are inline not block */
   :global(.about-cta .lang-zh) { display: inline; }

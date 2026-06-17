@@ -57,19 +57,37 @@ const projects = allProjects.sort(
 
     <main class="site-container">
       <header class="page-header">
-        <h1>Works</h1>
+        <h1>
+          <span class="lang-zh">作品</span>
+          <span class="lang-en">Works</span>
+        </h1>
         <div class="header-meta">
           <p class="result-count">{projects.length} projects</p>
           <div class="sort-control" id="sort-control">
             <button class="sort-button" id="sort-button" type="button" aria-expanded="false">
-              <span class="sort-label">Sort by</span>
-              <span class="sort-value" id="sort-value">Popularity</span>
+              <span class="sort-label">
+                <span class="lang-zh">排序</span>
+                <span class="lang-en">Sort by</span>
+              </span>
+              <span class="sort-value" id="sort-value">
+                <span class="lang-zh">熱門程度</span>
+                <span class="lang-en">Popularity</span>
+              </span>
               <span class="sort-caret" aria-hidden="true">▾</span>
             </button>
             <ul class="sort-options" id="sort-options" role="listbox" hidden>
-              <li role="option" data-value="popularity" class="active">Popularity</li>
-              <li role="option" data-value="newest">Newest</li>
-              <li role="option" data-value="oldest">Oldest</li>
+              <li role="option" data-value="popularity" data-label-zh="熱門程度" data-label-en="Popularity" class="active">
+                <span class="lang-zh">熱門程度</span>
+                <span class="lang-en">Popularity</span>
+              </li>
+              <li role="option" data-value="newest" data-label-zh="最新" data-label-en="Newest">
+                <span class="lang-zh">最新</span>
+                <span class="lang-en">Newest</span>
+              </li>
+              <li role="option" data-value="oldest" data-label-zh="最舊" data-label-en="Oldest">
+                <span class="lang-zh">最舊</span>
+                <span class="lang-en">Oldest</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -82,7 +100,8 @@ const projects = allProjects.sort(
             <line x1="7" y1="12" x2="17" y2="12"></line>
             <line x1="10" y1="18" x2="14" y2="18"></line>
           </svg>
-          <span>Filter</span>
+          <span class="lang-zh">篩選</span>
+          <span class="lang-en">Filter</span>
           <span class="filter-count" id="filter-count" hidden>(0)</span>
         </button>
       </div>
@@ -117,7 +136,10 @@ const projects = allProjects.sort(
             </ul>
           </div>
 
-          <button id="clear-filters" type="button">Clear all</button>
+          <button id="clear-filters" type="button">
+            <span class="lang-zh">清除全部</span>
+            <span class="lang-en">Clear all</span>
+          </button>
         </aside>
 
         <div class="works-grid" id="works-grid">
@@ -147,7 +169,10 @@ const projects = allProjects.sort(
 
     <div class="filter-sheet" id="filter-sheet" hidden>
       <div class="filter-sheet-header">
-        <h2 class="filter-sheet-title">Filter</h2>
+        <h2 class="filter-sheet-title">
+          <span class="lang-zh">篩選</span>
+          <span class="lang-en">Filter</span>
+        </h2>
         <button class="filter-sheet-close" id="filter-sheet-close" aria-label="Close">×</button>
       </div>
 
@@ -155,9 +180,14 @@ const projects = allProjects.sort(
       </div>
 
       <div class="filter-sheet-footer">
-        <button class="filter-sheet-clear" id="filter-sheet-clear" type="button">Clear all</button>
+        <button class="filter-sheet-clear" id="filter-sheet-clear" type="button">
+          <span class="lang-zh">清除全部</span>
+          <span class="lang-en">Clear all</span>
+        </button>
         <button class="filter-sheet-apply" id="filter-sheet-apply" type="button">
-          Apply <span class="filter-sheet-apply-count" id="filter-sheet-apply-count" hidden>(0)</span>
+          <span class="lang-zh">套用</span>
+          <span class="lang-en">Apply</span>
+          <span class="filter-sheet-apply-count" id="filter-sheet-apply-count" hidden>(0)</span>
         </button>
       </div>
     </div>
@@ -278,11 +308,11 @@ const projects = allProjects.sort(
   }
 
   .works-layout {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 32px;
-  padding: 0 clamp(16px, 4%, 40px) 80px;
-}
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+    padding: 0 clamp(16px, 4%, 40px) 80px;
+  }
 
   .filter-sidebar {
     position: sticky;
@@ -624,11 +654,6 @@ const projects = allProjects.sort(
   }
 
   @media (max-width: 960px) {
-
-    html,
-    body {
-  overflow-x: hidden;
-}
     .filter-sidebar {
       display: none;
     }
@@ -766,7 +791,7 @@ const projects = allProjects.sort(
   sortOptions.querySelectorAll("li").forEach((li) => {
     li.addEventListener("click", () => {
       currentSort = li.dataset.value;
-      sortValueLabel.textContent = li.textContent;
+      sortValueLabel.innerHTML = `<span class="lang-zh">${li.dataset.labelZh}</span><span class="lang-en">${li.dataset.labelEn}</span>`;
 
       sortOptions.querySelectorAll("li").forEach((other) =>
         other.classList.toggle("active", other === li)
