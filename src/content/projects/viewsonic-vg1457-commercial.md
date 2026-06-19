@@ -26,6 +26,6 @@ rnd:
     src: "https://www.instagram.com/reel/C6kqUSSojmJ/"
     orientation: "horizontal"
 featured: true
-
+published: false
 testField: "hello world"
 ---
